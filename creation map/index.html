@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Projet</title>
+  </head>
+  <body style="margin:0">
+
+    <canvas id="o_canvas" width="800" height="800"></canvas>
+
+    <p>X0: <input type="text" id="x" value="0"> Y0: <input type="text" id="y" value="0">
+
+      <select name="texture" id="texture-choix">
+        <option value="">Texture choix</option>
+        <option value="pelouse">Pelouse</option>
+        <option value="arbre">Arbre</option>
+        <option value="eau">Eau</option>
+      </select>
+      <select name="orientation" id="orientation-choix">
+        <option value="">Orientation choix</option>
+        <option value="HG">HG</option>
+        <option value="H">H</option>
+        <option value="HD">HD</option>
+        <option value="G">G</option>
+        <option value="_">_</option>
+        <option value="D">D</option>
+        <option value="BG">BG</option>
+        <option value="B">B</option>
+        <option value="BD">BD</option>
+      </select>
+      <button type="button" onclick="maj();" name="button">mettre à jour</button>
+    </p>
+    <br>
+    <button type="button" onclick="resultatMap();" name="button" >Resultat map</button><br>
+    <textarea name="resultat" rows="8" cols="80" id="resultatMap"></textarea>
+
+    <script type="text/javascript" src="affichage.js"></script>
+    <script type="text/javascript" src="var.js"></script>
+
+  </body>
+</html>
