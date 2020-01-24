@@ -14,6 +14,8 @@ touches.haut=false;
 touches.bas=false;
 touches.gauche=false;
 touches.droite=false;
+touches.espace=false;
+touches.entree=false;
 document.addEventListener("keydown", clavierDown);
 document.addEventListener("keyup", clavierUp);
 
@@ -34,6 +36,14 @@ function clavierDown(e){
       case 39:
       case 68:
         touches.droite=true;
+        break;
+      case 32://espace
+        touches.espace=true;
+        attaquer();
+        break;
+      case 13://entree
+        touches.entree=true;
+        interagir();
         break;
     }
 }
@@ -66,9 +76,22 @@ function boucle(){
   setTimeout(boucle, 10);
 }
 
+
+function pnj(i,j,orientation){
+    this.i=i;
+    this.j=j;
+    this.w=30;
+    this.h=30;
+    this.x=i*this.w;
+    this.y=1500*this.h;
+    this.orientation=orientation;
+}
+
+
+
 function personnage(){
-  this.x=1500;
-  this.y=1500;
+  this.x=1470;
+  this.y=1470;
   this.w=30;
   this.h=30;
   this.v=2.5;
@@ -128,32 +151,21 @@ personnage.prototype.orienter= function(){
   }
 }
 
+function attaquer(){
 
+}
 
-function eau(i,j,orientation){
-  this.name="eau";
+function interagir(){
+
+}
+
+function texture(name,i,j,orientation,franchissable,variante){
+  this.name=name;
   this.h=30;
   this.w=30;
   this.x=i*this.h;
   this.y=j*this.w;
   this.orientation=orientation;
-  this.franchissable=false;
-}
-
-function arbre(i,j){
-  this.name="arbre";
-  this.h=30;
-  this.w=30;
-  this.x=i*this.h;
-  this.y=j*this.w;
-  this.franchissable=false;
-}
-
-function pelouse(i,j){
-  this.name="pelouse";
-  this.h=30;
-  this.w=30;
-  this.x=i*this.h;
-  this.y=j*this.w;
-  this.franchissable=true;
+  this.franchissable=franchissable;
+  this.variante=variante;
 }
