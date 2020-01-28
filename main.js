@@ -1,4 +1,4 @@
-chargerImages();
 mapInit();
-setTimeout(200);
+monstre.choisirDirection();
+chargerImages();
 boucle();
