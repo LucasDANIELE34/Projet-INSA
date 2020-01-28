@@ -6,7 +6,7 @@ for (var i = 0; i < 100; i++) {
   decor[i]=[];
 }
 var perso=new personnage(50,49);
-var monstre=new monstre1(50,49);
+var monstre=new monstre1(53,49);
 
 var touches = new Object();
 touches.haut=false;
@@ -72,6 +72,7 @@ function boucle(){
   perso.orienter();
   monstre.orienter();
   monstre.deplacer();
+  monstre.attaquer();
   perso.deplacer();
   setTimeout(boucle, 10);
 }
