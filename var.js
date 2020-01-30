@@ -70,10 +70,12 @@ function clavierUp(e){
 function boucle(){
   afficher();
   perso.orienter();
+  perso.deplacer();
+  
   monstre.orienter();
   monstre.deplacer();
   monstre.attaquer();
-  perso.deplacer();
+
   setTimeout(boucle, 10);
 }
 

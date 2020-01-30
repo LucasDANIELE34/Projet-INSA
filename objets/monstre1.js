@@ -105,7 +105,6 @@ monstre1.prototype.deplacer = function () {
     vY=b*this.v/d;
   }
 
-
   var posApresDeplacementX = this.x+vX;
   var posApresDeplacementY = this.y+vY;
   var iApresDeplacement = Math.round(posApresDeplacementX/this.w);
