@@ -3,9 +3,11 @@ function monstre1(i,j){
   this.w=30;
   this.x=i*this.h;
   this.y=j*this.w;
-  this.v=1.5;
+  this.v=0.7;
   this.directionX=this.x;
   this.directionY=this.y;
+  this.ptAttaques=0.5;
+  this.delaiAttaque=0;
   this.orientation='B';
   this.textures = new Object();
 }
@@ -29,7 +31,7 @@ monstre1.prototype.chargerImages= function(){
 }
 
 monstre1.prototype.orienter= function(){
-  if (Math.abs(this.directionX)>Math.abs(this.directionY)) {//si la composante horizontale est plus grande que celle verticale
+  if (Math.abs(this.directionX-this.x)>Math.abs(this.directionY-this.y)) {//si la composante horizontale est plus grande que celle verticale
     if (this.directionX-this.x<0){//si on va vers la gauche
       this.orientation='G';
     }
@@ -38,7 +40,7 @@ monstre1.prototype.orienter= function(){
     }
   }
   else {
-    if (this.directionX-this.x<0){//si on va vers le haut
+    if (this.directionY-this.y<0){//si on va vers le haut
       this.orientation='H';
     }
     else {
@@ -91,15 +93,50 @@ monstre1.prototype.choisirDirection= function () {
 }
 
 monstre1.prototype.deplacer = function () {
-  var angle = Math.atan((this.y-this.directionY)/(this.directionX-this.x));
-  var vX=this.v*Math.cos(angle);
-  var vY=this.v*Math.sin(angle);
+  var a=this.directionX-this.x;
+  var b=this.directionY-this.y;
+  var d=Math.sqrt(a*a+b*b);
+
+  var vX=0;
+  var vY=0;
+
+  if (d!=0) {
+    vX=a*this.v/d;
+    vY=b*this.v/d;
+  }
+
+
   var posApresDeplacementX = this.x+vX;
   var posApresDeplacementY = this.y+vY;
   var iApresDeplacement = Math.round(posApresDeplacementX/this.w);
   var jApresDeplacement = Math.round(posApresDeplacementY/this.h);
+
   if (decor[iApresDeplacement][jApresDeplacement].franchissable){
     this.x += vX;
     this.y += vY;
+  }
+
+  //si le monstre atteind son point d'objectif il en prend un nouveau
+  if ( (d<1) || (decor[iApresDeplacement][jApresDeplacement].franchissable==false) ) {
+    this.choisirDirection();
+  }
+};
+
+monstre1.prototype.attaquer = function (){
+  if (this.delaiAttaque > 0) {
+    this.delaiAttaque--;
+  }
+
+  var a=perso.x-this.x;
+  var b=perso.y-this.y;
+  var d=Math.sqrt(a*a+b*b);
+
+  if (d<5*this.w) {
+    if ((d<(this.w+perso.w)/2) && (this.delaiAttaque == 0)) {
+      perso.recevoirCoup(this.ptAttaques);
+      this.delaiAttaque=100;
+    }
+    this.directionX=perso.x;
+    this.directionY=perso.y;
   }
 };
