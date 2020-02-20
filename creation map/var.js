@@ -14,7 +14,7 @@ var sourisX;
 var sourisY;
 var XInit=0;
 var YInit=0;
-var choixTexture = 'pelouse';
+var choixTexture = 'sol';
 var orientation = 'N';
 var variante = 0;
 var nomMap='';
@@ -96,12 +96,14 @@ function afficherVariantes(nbVariante) {
 function majPosition() {
   XInit=parseInt(document.getElementById('x').value);
   YInit=parseInt(document.getElementById('y').value);
-  if (XInit>=80) {
-    XInit=79;
+  if (XInit>=20) {
+    XInit=20;
   }
-  if (YInit>=80) {
-    YInit=79;
+  if (YInit>=20) {
+    YInit=20;
   }
+  document.getElementById('x').value=XInit;
+  document.getElementById('y').value=YInit;
 }
 
 function majTexture() {
@@ -164,8 +166,8 @@ function placerTexture(i,j){
     decor[i][j]=new texture(choixTexture,i,j,orientation,variante);
 
     if (choixTexture == 'maisonPorte') {
-      decor[i][j].iSortie= prompt("position i à la sortie", 50);
-      decor[i][j].jSortie= prompt("position j à la sortie", 50);
+      decor[i][j].iSortie= parseInt(prompt("position i à la sortie", 50));
+      decor[i][j].jSortie= parseInt(prompt("position j à la sortie", 50));
       decor[i][j].map = nomMap;
     }
 
@@ -205,7 +207,7 @@ function init() {
   chargerImages(texturesSources);
   for (var i = 0; i < 100; i++) {
     for (var j = 0; j < 100; j++) {
-      decor[i][j]=new texture('pelouse',i,j,'N',0,'','');
+      decor[i][j]=new texture('sol',i,j,'N',0,'','');
     }
   }
   boucle();
@@ -214,11 +216,11 @@ function init() {
 function resultatMap(){
   for (var i = 0; i < 100; i++) {
     for (var j = 0; j < 100; j++) {
-      if (decor[i][j].name != 'pelouse'){
+      if (decor[i][j].name != 'sol'){
         decorAlegee[decorAlegee.length] = {
           name:decor[i][j].name,
-          i:i,
-          j:j,
+          i:i+11,
+          j:j+8,
           orientation:decor[i][j].orientation,
           variante:decor[i][j].variante
         }
@@ -228,8 +230,8 @@ function resultatMap(){
         }
         if (decor[i][j].map!=null) {
           decorAlegee[decorAlegee.length-1].map = decor[i][j].map;
-          decorAlegee[decorAlegee.length-1].iSortie = decor[i][j].iSortie;
-          decorAlegee[decorAlegee.length-1].jSortie = decor[i][j].jSortie;
+          decorAlegee[decorAlegee.length-1].iSortie = decor[i][j].iSortie+11;
+          decorAlegee[decorAlegee.length-1].jSortie = decor[i][j].jSortie+8;
         }
 
       }
