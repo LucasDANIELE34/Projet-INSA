@@ -1,36 +1,22 @@
-function monstre1(i,j){
+function monstre(i,j,variante){
+  this.name='monstre';
   this.h=30;
   this.w=30;
   this.x=i*this.h;
   this.y=j*this.w;
   this.v=0.7;
+  this.variante=variante;
   this.directionX=this.x;
   this.directionY=this.y;
   this.ptAttaques=0.5;
   this.delaiAttaque=0;
   this.orientation='B';
   this.textures = new Object();
+  this.vivant=true;
+  this.vie=5;
 }
 
-monstre1.prototype.chargerImages= function(){
-  this.textures.B=new Image();
-  this.textures.B.src="assets/monstres/1/M_B.png";
-  this.textures.B.addEventListener('load',function(){}, false);
-
-  this.textures.D=new Image();
-  this.textures.D.src="assets/monstres/1/M_D.png";
-  this.textures.D.addEventListener('load',function(){}, false);
-
-  this.textures.G=new Image();
-  this.textures.G.src="assets/monstres/1/M_G.png";
-  this.textures.G.addEventListener('load',function(){}, false);
-
-  this.textures.H=new Image();
-  this.textures.H.src="assets/monstres/1/M_H.png";
-  this.textures.H.addEventListener('load',function(){}, false);
-}
-
-monstre1.prototype.orienter= function(){
+monstre.prototype.orienter= function(){
   if (Math.abs(this.directionX-this.x)>Math.abs(this.directionY-this.y)) {//si la composante horizontale est plus grande que celle verticale
     if (this.directionX-this.x<0){//si on va vers la gauche
       this.orientation='G';
@@ -49,25 +35,13 @@ monstre1.prototype.orienter= function(){
   }
 }
 
-monstre1.prototype.afficher= function(){
-  switch (this.orientation) {
-    case 'B':
-      this.image= this.textures.B;
-      break;
-    case 'D':
-      this.image= this.textures.D;
-      break;
-    case 'H':
-      this.image= this.textures.H;
-      break;
-    case 'G':
-      this.image= this.textures.G;
-      break;
-  }
-  canvas.drawImage(this.image, this.x - perso.x + 300, this.y - perso.y + 200);
+monstre.prototype.afficher= function(){
+  var img = new Image();
+  img = texturesSources[this.name]['images'][this.variante][this.orientation];
+  canvas.drawImage(img, this.x - perso.x + 300, this.y - perso.y + 200);
 }
 
-monstre1.prototype.choisirDirection= function () {
+monstre.prototype.choisirDirection= function () {
   var angle = Math.random()*2*Math.PI;
   var distanceIndice = Math.random();
   var distance;
@@ -92,7 +66,7 @@ monstre1.prototype.choisirDirection= function () {
   this.directionY= this.y+ distance*this.h*Math.sin(angle);
 }
 
-monstre1.prototype.deplacer = function () {
+monstre.prototype.deplacer = function () {
   var a=this.directionX-this.x;
   var b=this.directionY-this.y;
   var d=Math.sqrt(a*a+b*b);
@@ -121,21 +95,27 @@ monstre1.prototype.deplacer = function () {
   }
 };
 
-monstre1.prototype.attaquer = function (){
+monstre.prototype.attaquer = function (){
   if (this.delaiAttaque > 0) {
     this.delaiAttaque--;
   }
-
-  var a=perso.x-this.x;
-  var b=perso.y-this.y;
-  var d=Math.sqrt(a*a+b*b);
-
-  if (d<5*this.w) {
+  var d = distance(this.x,this.y,perso.x,perso.y);
+  if (d<4*this.w) {
     if ((d<(this.w+perso.w)/2) && (this.delaiAttaque == 0)) {
       perso.recevoirCoup(this.ptAttaques);
       this.delaiAttaque=100;
     }
     this.directionX=perso.x;
     this.directionY=perso.y;
+  }
+};
+
+monstre.prototype.recevoirCoup = function (ptAttaques) {
+  this.vie -= ptAttaques;
+  if (this.vie<0) {
+    this.vie=0;
+  }
+  if (this.vie==0) {
+    this.vivant=false;
   }
 };

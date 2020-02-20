@@ -1,20 +1,14 @@
 var canvas = document.getElementById('o_canvas');
 canvas = canvas.getContext('2d');//notre fenetre
-
-var decor = [];//tableau contenant tous les objets à afficher du décor
-for (var i = 0; i < 100; i++) {
-  decor[i]=[];
-}
-var perso=new personnage(50,49);
-var monstre=new monstre1(53,49);
+var urlServeur = "https://tipne.000webhostapp.com/";
+var mapChargee = false;
+var taille = 30;
 
 var touches = new Object();
 touches.haut=false;
 touches.bas=false;
 touches.gauche=false;
 touches.droite=false;
-touches.espace=false;
-touches.entree=false;
 document.addEventListener("keydown", clavierDown);
 document.addEventListener("keyup", clavierUp);
 
@@ -37,12 +31,17 @@ function clavierDown(e){
         touches.droite=true;
         break;
       case 32://espace
-        touches.espace=true;
-        attaquer();
+        if (!perso.parle) {
+        //   perso.attaquer(2,monstres[indiceMonstreLePlusProche(monstres)]);
+        }
         break;
       case 13://entree
-        touches.entree=true;
-        interagir();
+        if (!perso.parle) {
+          perso.interagir();
+        }
+        else {
+          perso.changerPhrases();
+        }
         break;
     }
 }
@@ -68,33 +67,74 @@ function clavierUp(e){
 }
 
 function boucle(){
-  afficher();
-  perso.orienter();
-  perso.deplacer();
-  
-  monstre.orienter();
-  monstre.deplacer();
-  monstre.attaquer();
+  if (mapChargee) {
+    afficher();
+    if (!perso.parle) {
+      perso.orienter();
+      perso.deplacer();
+      perso.compteurAnimation();
+    }
 
+    //monMonstre.orienter();
+    //monMonstre.deplacer();
+    //monMonstre.attaquer();
+
+  }
   setTimeout(boucle, 10);
 }
 
-
-function pnj(i,j,orientation){
-    this.i=i;
-    this.j=j;
-    this.w=30;
-    this.h=30;
-    this.x=i*this.w;
-    this.y=1500*this.h;
-    this.orientation=orientation;
+function xyVersIj(x,y){
+  var ij=[];
+  ij[0]=Math.round(x/30);
+  ij[1]=Math.round(y/30);
+  return ij;
 }
 
-function attaquer(){
+function enregistrerDsFichier(chemin, objet) {
+  for (var i = 0; i < 100; i++) {
+    for (var j = 0; j < 100; j++) {
+      if (objet[i][j].name == 'pelouse') {
+        objet[i][j]='';
+      }
+    }
+  }
+  var monJSON =  JSON.stringify(objet);
+  var xhttp = new XMLHttpRequest();
+  var data = "chemin="+chemin+"&data="+monJSON;
 
+  xhttp.open("POST", urlServeur+"enregistrer.php", true);
+  xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  xhttp.send(data);
 }
 
-function interagir(){
-
+function decouperTexte(texte) {
+  var phrases = new Array();
+  var mots = texte.split(' ');
+  var i=0;
+  phrases[0]='';
+  do {
+    do {
+      phrases[i]+=' ' + mots[0];
+      mots.splice(0,1);
+    } while (!((phrases[i].length>55) || (mots.length == 0))) ;
+    i++;
+    phrases[i]='';
+  } while (mots.length != 0);
+  return phrases;
 }
-//regarder du coté des api
+
+function distance(x1,y1,x2,y2) {
+  return Math.sqrt((x1-x2)*(x1-x2)+(y1-y2)*(y1-y2));
+}
+
+function indiceMonstreLePlusProche(monstres){
+  var distanceMonstrePlusProche=15000;
+  var indice;
+  for (var i = 0; i < monstres.length; i++) {
+    if (distance(perso.x,perso.y,monstres[i].x,monstres[i].y)<distanceMonstrePlusProche) {
+      distanceMonstrePlusProche=distance(perso.x,perso.y,monstres[i].x,monstres[i].y);
+      indice=i;
+    }
+  }
+  return indice;
+}

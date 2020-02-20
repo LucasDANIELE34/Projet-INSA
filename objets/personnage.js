@@ -1,18 +1,24 @@
 function personnage(i,j){
+  this.name = 'personnage';
   this.w=30;
   this.h=30;
   this.x=i*this.w;
   this.y=j*this.h;
   this.v=2.5;
+  this.variante=0;
   this.vieMax=5;
   this.vie=this.vieMax;
   this.vivant=true;
   this.orientation='B';
+  this.parle=false;
+  this.phrases=new Array();
+  this.numeroPhrases=0;
   this.textures = new Object();
+  this.delaiAttaque=0;
 }
 
-personnage.prototype.deplacer= function(){
-  var vX,vY,iApresDeplacement,jApresDeplacement;
+personnage.prototype.calculerVitesse = function(){
+  var vX,vY,ijApresDeplacement,ijPerso;
 
   vX=0;
   vY=0;
@@ -29,12 +35,26 @@ personnage.prototype.deplacer= function(){
     vX = -this.v;
   }
 
-  iApresDeplacement = Math.round((this.x + vX)/this.w);
-  jApresDeplacement = Math.round((this.y + vY)/this.h)
+  if ((vX!=0) && (vY!=0)) { //si on avance en horizontal et en vertical, on diminue la vitesse pour parraitre aller toujours aller à la meme.
+    vX*=0.71;
+    vY*=0.71;
+  }
+  return [vX,vY];
+}
+
+personnage.prototype.deplacer = function(){
+  var v,ijApresDeplacement,ijPerso;
+
+  v = this.calculerVitesse();
+
+  ijPerso = xyVersIj(this.x, this.y);
+  ijApresDeplacement = xyVersIj((this.x + v[0]),(this.y + v[1]));
   //si l'élément décor qui est à la position du personnage apres son deplacemnt est franchissable, on se deplace
-  if (decor[iApresDeplacement][jApresDeplacement].franchissable == true){
-    this.x += vX;
-    this.y += vY;
+  if (decor[ijApresDeplacement[0]][ijPerso[1]].franchissable){
+    this.x += v[0];
+  }
+  if (decor[ijPerso[0]][ijApresDeplacement[1]].franchissable){
+    this.y += v[1];
   }
 }
 
@@ -48,66 +68,37 @@ personnage.prototype.orienter= function(){
   if (touches.bas && !touches.haut){
     this.orientation='B';
   }
-
   if (touches.haut && !touches.bas){
     this.orientation='H';
   }
 }
 
-personnage.prototype.chargerImages= function(){
-  this.textures.B=new Image();
-  this.textures.B.src="assets/personnages/P_B.png";
-
-  this.textures.D=new Image();
-  this.textures.D.src="assets/personnages/P_D.png";
-
-  this.textures.G=new Image();
-  this.textures.G.src="assets/personnages/P_G.png";
-
-  this.textures.H=new Image();
-  this.textures.H.src="assets/personnages/P_H.png";
-
-  this.textures.coeurPlein=new Image();
-  this.textures.coeurPlein.src="assets/personnages/C_plein.png";
-
-  this.textures.coeurDemi=new Image();
-  this.textures.coeurDemi.src="assets/personnages/C_demi.png";
-
-  this.textures.coeurVide=new Image();
-  this.textures.coeurVide.src="assets/personnages/C_vide.png";
-}
-
 personnage.prototype.afficher= function(){
-  //dessin du perso
-  switch (this.orientation) {
-    case 'B':
-      this.image= this.textures.B;
-      break;
-    case 'D':
-      this.image= this.textures.D;
-      break;
-    case 'H':
-      this.image= this.textures.H;
-      break;
-    case 'G':
-      this.image= this.textures.G;
-      break;
-  }
-  canvas.drawImage(this.image, 300, 200);
+  var img = new Image();
+  img = texturesSources[this.name]['images'][this.variante][this.orientation];
+  canvas.drawImage(img, this.x - perso.x + 300, this.y - perso.y + 200);
 
   //dessin des coeurs de vie
+  img = texturesSources.coeur.images[0].vide;
   for (var i = 0; i < this.vieMax; i++) {
-    canvas.drawImage(this.textures.coeurVide, i*15, 0, 15, 15);
+    canvas.drawImage(img, i*15, 0, 15, 15);
   }
 
   var nbCoeursComplets = Math.floor(this.vie);
+  img = texturesSources.coeur.images[0].plein;
   for (var i = 0; i < nbCoeursComplets; i++) {
-    canvas.drawImage(this.textures.coeurPlein, i*15, 0, 15, 15);
-  }
-  if (nbCoeursComplets<this.vie) {
-    canvas.drawImage(this.textures.coeurDemi, nbCoeursComplets*15, 0, 15, 15);
+    canvas.drawImage(img, i*15, 0, 15, 15);
   }
 
+  if (nbCoeursComplets<this.vie) {
+    img = texturesSources.coeur.images[0].demi;
+    canvas.drawImage(img, nbCoeursComplets*15, 0, 15, 15);
+  }
+
+  //si le perso parle il affiche le texte
+  if (this.parle) {
+    this.afficherTexte();
+  }
 }
 
 personnage.prototype.recevoirCoup = function (ptAttaques) {
@@ -117,6 +108,61 @@ personnage.prototype.recevoirCoup = function (ptAttaques) {
   }
   if (this.vie==0) {
     this.vivant=false;
-    alert("mort");
+  }
+};
+
+personnage.prototype.parler = function(phrases){
+  this.phrases=phrases;
+  this.parle=!this.parle;
+}
+
+personnage.prototype.afficherTexte = function (){
+  canvas.fillStyle= "black";
+  canvas.font = "25px Arial";
+  canvas.fillText(this.phrases[this.numeroPhrases],0,350);
+}
+
+personnage.prototype.changerPhrases = function(){
+  this.numeroPhrases++;
+  if (this.phrases[this.numeroPhrases]=="") {
+    this.parler([""]);
+    this.numeroPhrases = 0;
+  }
+}
+
+personnage.prototype.ijInteraction = function(){
+  var ijInteraction = xyVersIj(this.x,this.y);
+  switch (this.orientation) {
+    case 'B':
+      ijInteraction[1]++;
+      break;
+    case 'H':
+      ijInteraction[1]--;
+      break;
+    case 'G':
+      ijInteraction[0]--;
+      break;
+    case 'D':
+      ijInteraction[0]++;
+      break;
+  }
+  return ijInteraction;
+}
+
+personnage.prototype.interagir = function(){
+  var ijInteraction = this.ijInteraction();
+  decor[ ijInteraction[0] ][ ijInteraction[1] ].interagir();
+}
+
+personnage.prototype.compteurAnimation = function () {
+  if (this.delaiAttaque > 0) {
+    this.delaiAttaque--;
+  }
+};
+
+personnage.prototype.attaquer = function (ptAttaques,monstre){
+  if ((distance(this.x,this.y,monstre.x,monstre.y)<(this.w+monstre.w)) && (this.delaiAttaque == 0)) {
+    monstre.recevoirCoup(ptAttaques);
+    this.delaiAttaque=100;
   }
 };

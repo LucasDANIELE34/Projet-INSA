@@ -1,3 +1,2 @@
-mapInit();
-chargerImages();
+telechargerMap('maps/mondePrincipal');
 boucle();
