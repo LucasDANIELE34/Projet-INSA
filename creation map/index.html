@@ -4,46 +4,51 @@
     <meta charset="utf-8">
     <title>Projet edit</title>
   </head>
-  <body style="margin:0">
+  <body style="margin:0" onload="init();">
 
     <canvas id="o_canvas" width="800" height="800"></canvas>
 
-    <p>X0: <input type="text" id="x" value="0"> Y0: <input type="text" id="y" value="0">
+    <p>X0: <input type="text" id="x" value="0" onfocusout="maj();"> Y0: <input type="text" id="y" value="0" onfocusout="maj();">
 
       <select name="texture" id="texture-choix">
         <option value="">Texture choix</option>
-        <option value="pelouse">Pelouse</option>
-        <option value="chemin">Chemin</option>
-        <option value="arbre">Arbre</option>
-        <option value="eau">Eau</option>
-        <option value="mur">Mur</option>
-        <option value="escalier">Escalier</option>
-        <option value="maison-porte">Maison porte</option>
-        <option value="maison-mur">Maison mur</option>
-        <option value="maison-toit">Maison toit</option>
+        <option value="pelouse" onclick="maj();">Pelouse</option>
+        <option value="chemin" onclick="maj();">Chemin</option>
+        <option value="arbre" onclick="maj();">Arbre</option>
+        <option value="eau" onclick="maj();">Eau</option>
+        <option value="mur" onclick="maj();">Mur</option>
+        <option value="escalier" onclick="maj();">Escalier</option>
+        <option value="maisonPorte" onclick="maj();">Maison porte</option>
+        <option value="maisonMur" onclick="maj();">Maison mur</option>
+        <option value="maisonToit" onclick="maj();">Maison toit</option>
+        <option value="pnj" onclick="maj();">PNJ</option>
       </select>
       <select name="orientation" id="orientation-choix">
         <option value="">Orientation choix</option>
-        <option value="HG">HG</option>
-        <option value="H">H</option>
-        <option value="HD">HD</option>
-        <option value="G">G</option>
-        <option value="_">_</option>
-        <option value="D">D</option>
-        <option value="BG">BG</option>
-        <option value="B">B</option>
-        <option value="BD">BD</option>
+        <option value="HG" id="HG" onclick="maj();">HG</option>
+        <option value="H"  id="H" onclick="maj();">H</option>
+        <option value="HD" id="HD" onclick="maj();">HD</option>
+        <option value="G" id="G" onclick="maj();">G</option>
+        <option value="N" id="N" onclick="maj();">N</option>
+        <option value="D" id="D" onclick="maj();">D</option>
+        <option value="BG" id="BG" onclick="maj();">BG</option>
+        <option value="B"  id="B" onclick="maj();">B</option>
+        <option value="BD"  id="BD" onclick="maj();">BD</option>
       </select>
       <select name="variante" id="variante-choix">
-        <option value="1">1</option>
-        <option value="normal">normal</option>
+        <option value="0" id="variante0" onclick="maj();">0</option>
+        <option value="1" id="variante1" onclick="maj();">1</option>
       </select>
-      <button type="button" onclick="maj();" name="button">mettre à jour</button>
     </p>
+    <input type="text" id="nomMap" placeholder="nomMap" onfocusout="maj();">
+    <textarea rows="4" cols="60" id="texte-texture" onfocusout="maj();"></textarea>
+
+    <p id="msg" style="color:red"></p>
     <br>
     <button type="button" onclick="resultatMap();" name="button" >Resultat map</button><br>
     <textarea name="resultat" rows="8" cols="80" id="resultatMap"></textarea>
 
+    <script type="text/javascript" src="texturesListe.js"></script>
     <script type="text/javascript" src="affichage.js"></script>
     <script type="text/javascript" src="var.js"></script>
 
