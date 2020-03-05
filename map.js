@@ -3,10 +3,10 @@ for (var i = 0; i < 100; i++) {
   decor[i]=[];
 }
 
-var perso=new personnage(49,49);
+var perso=new personnage(20+11,20+8);
 
-//var monstres=[new monstre(53,49,0),new monstre(53,55,0)];
-
+var mesMonstres=[new monstre(31,35,0,0),new monstre(21,27,0,1)];
+var mesBoulets=[];
 
 function telechargerMap(cheminMap) {
   mapChargee = false;
@@ -27,9 +27,11 @@ function telechargerMap(cheminMap) {
 }
 
 function chargerMap(map){
-  for (var i = 0; i < 100; i++) {
-    for (var j = 0; j < 100; j++) {
-      decor[i][j] = new texture('pelouse',i,j,'N',0,'','');
+  //on fait un tour de vide autour de la pelouse
+  for (var i = 0; i < 11+40+11; i++) {
+    for (var j = 0; j < 8+40+8; j++) {
+      //decor[i][j] = new texture('vide',i,j,'N',0);
+      decor[i][j] = new texture('sol',i,j,'N',0);
     }
   }
 

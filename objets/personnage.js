@@ -76,7 +76,7 @@ personnage.prototype.orienter= function(){
 personnage.prototype.afficher= function(){
   var img = new Image();
   img = texturesSources[this.name]['images'][this.variante][this.orientation];
-  canvas.drawImage(img, this.x - perso.x + 300, this.y - perso.y + 200);
+  canvas.drawImage(img, 300, 200);
 
   //dessin des coeurs de vie
   img = texturesSources.coeur.images[0].vide;
@@ -162,7 +162,40 @@ personnage.prototype.compteurAnimation = function () {
 
 personnage.prototype.attaquer = function (ptAttaques,monstre){
   if ((distance(this.x,this.y,monstre.x,monstre.y)<(this.w+monstre.w)) && (this.delaiAttaque == 0)) {
+    ajouterBoulet(this,monstre);
     monstre.recevoirCoup(ptAttaques);
     this.delaiAttaque=100;
   }
+};
+
+
+function boulet (xDepart,yDepart,xArrivee,yArrivee,i){
+    this.v = 3;
+    this.i = i;
+    this.x = xDepart;
+    this.y = yDepart;
+    this.xDirection = xArrivee;
+    this.yDirection = yArrivee;
+}
+
+boulet.prototype.deplacer =function (){
+    var dist = distance(this.x,this.y,this.xDirection,this.yDirection);
+
+    if (dist!=0) {
+      var vX=(this.xDirection-this.x)*this.v/dist;
+      var vY=(this.yDirection-this.y)*this.v/dist;
+    }
+    if (dist>=this.v){
+      this.x +=vX;
+      this.y +=vY;
+    }
+    else {
+      supprimerBoulet(this.i);
+    }
+}
+
+boulet.prototype.afficher = function () {
+  var img = new Image();
+  img = texturesSources['personnage']['images'][0]['B'];
+  canvas.drawImage(img, this.x - perso.x + 300, this.y - perso.y + 200);
 };

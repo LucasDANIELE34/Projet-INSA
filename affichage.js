@@ -21,18 +21,24 @@ function afficher(){
   canvas.fillStyle="white";
   canvas.fill();
 
-  if (mapChargee) {
-    var ijPerso = xyVersIj(perso.x,perso.y);
-    for (var i = ijPerso[0]-10; i < ijPerso[0]+10; i++) {//pour toutes les cases qui cadrient notre map, on affiche l'objet qu'elle contient
-      for (var j =  ijPerso[1]-10; j < ijPerso[1]+10; j++) {
-            decor[i][j].afficher();
+
+  var ijPerso = xyVersIj(perso.x,perso.y);
+  for (var i = ijPerso[0]-11; i < ijPerso[0]+11; i++) {//pour toutes les cases qui cadrient notre map, on affiche l'objet qu'elle contient
+    for (var j =  ijPerso[1]-8; j < ijPerso[1]+8; j++) {
+      if (mapChargee) {
+        decor[i][j].afficher();
       }
     }
-
-    // for (var i = 0; i < monstres.length; i++) {
-    //   monstres[i].afficher();
-    // }
-
-    perso.afficher();
   }
+
+    for (var i = 0; i < mesMonstres.length; i++) {
+      mesMonstres[i].afficher();
+    }
+    for (var i = 0; i < mesBoulets.length; i++) {
+      mesBoulets[i].afficher();
+    }
+
+    if (mapChargee) {
+      perso.afficher();
+    }
 }

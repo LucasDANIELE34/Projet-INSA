@@ -31,8 +31,8 @@ function clavierDown(e){
         touches.droite=true;
         break;
       case 32://espace
-        if (!perso.parle) {
-        //   perso.attaquer(2,monstres[indiceMonstreLePlusProche(monstres)]);
+        if ((!perso.parle) && (mesMonstres.length>0)) {
+           perso.attaquer(2,mesMonstres[indiceMonstreLePlusProche(mesMonstres)]);
         }
         break;
       case 13://entree
@@ -75,9 +75,15 @@ function boucle(){
       perso.compteurAnimation();
     }
 
-    //monMonstre.orienter();
-    //monMonstre.deplacer();
-    //monMonstre.attaquer();
+    for (var i = 0; i < mesMonstres.length; i++) {
+      mesMonstres[i].orienter();
+      mesMonstres[i].deplacer();
+      mesMonstres[i].attaquer();
+    }
+
+    for (var i = 0; i < mesBoulets.length; i++) {
+      mesBoulets[i].deplacer();
+    }
 
   }
   setTimeout(boucle, 10);
@@ -137,4 +143,16 @@ function indiceMonstreLePlusProche(monstres){
     }
   }
   return indice;
+}
+
+function supprimerBoulet(i){
+  mesBoulets.splice(i,1);
+}
+
+function ajouterBoulet(perso,monstre){
+  mesBoulets[mesBoulets.length] = new boulet(perso.x,perso.y,monstre.x,monstre.y,mesBoulets.length);
+}
+
+function supprimerMonstre(i){
+  mesMonstres.splice(i,1);
 }

@@ -1,10 +1,11 @@
-function monstre(i,j,variante){
+function monstre(i,j,variante,indiceTableau){
   this.name='monstre';
   this.h=30;
   this.w=30;
   this.x=i*this.h;
   this.y=j*this.w;
   this.v=0.7;
+  this.indiceTableau=indiceTableau
   this.variante=variante;
   this.directionX=this.x;
   this.directionY=this.y;
@@ -12,7 +13,6 @@ function monstre(i,j,variante){
   this.delaiAttaque=0;
   this.orientation='B';
   this.textures = new Object();
-  this.vivant=true;
   this.vie=5;
 }
 
@@ -67,6 +67,7 @@ monstre.prototype.choisirDirection= function () {
 }
 
 monstre.prototype.deplacer = function () {
+
   var a=this.directionX-this.x;
   var b=this.directionY-this.y;
   var d=Math.sqrt(a*a+b*b);
@@ -112,10 +113,8 @@ monstre.prototype.attaquer = function (){
 
 monstre.prototype.recevoirCoup = function (ptAttaques) {
   this.vie -= ptAttaques;
+  console.log(this.vie);
   if (this.vie<0) {
-    this.vie=0;
-  }
-  if (this.vie==0) {
-    this.vivant=false;
+    supprimerMonstre(this.indiceTableau);
   }
 };

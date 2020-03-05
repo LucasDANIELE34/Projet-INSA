@@ -13,7 +13,7 @@ function texture(name,i,j,orientation,variante){
 texture.prototype.afficher= function(){
   var img = new Image();
   img = texturesSources[this.name]['images'][this.variante][this.orientation];
-  canvas.drawImage(img, this.x - perso.x + 300, this.y - perso.y + 200);
+  canvas.drawImage(img, this.x - Math.floor(perso.x) + 300, this.y - Math.floor(perso.y) + 200);
 }
 
 texture.prototype.interagir= function (){
@@ -21,7 +21,7 @@ texture.prototype.interagir= function (){
     perso.parler(this.phrases);
   }
   if (this.map!=null) {
-    perso.x=this.iSortie*this.w;
+    perso.x=this.iSortie*this.h;
     perso.y=this.jSortie*this.h;
     telechargerMap('maps/'+this.map);
   }

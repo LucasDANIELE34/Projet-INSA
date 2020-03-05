@@ -16,10 +16,77 @@ var texturesSources = {
       }
     ]
   },
-  pelouse:{
+  fenetre:{
+    type:"decors",
+    franchissable:false,
+    orientationsImage:[
+      {
+        HG:false,
+        H:false,
+        HD:false,
+        G:false,
+        N:true,
+        D:false,
+        BG:false,
+        B:false,
+        BD:false
+      }
+    ]
+  },
+  vide:{
+    type:"decors",
+    franchissable:false,
+    orientationsImage:[
+      {
+        HG:false,
+        H:false,
+        HD:false,
+        G:false,
+        N:true,
+        D:false,
+        BG:false,
+        B:false,
+        BD:false
+      }
+    ]
+  },
+  sol:{
     type:"decors",
     franchissable:true,
     orientationsImage:[
+      {
+        HG:false,
+        H:false,
+        HD:false,
+        G:false,
+        N:true,
+        D:false,
+        BG:false,
+        B:false,
+        BD:false
+      },
+      {
+        HG:false,
+        H:false,
+        HD:false,
+        G:false,
+        N:true,
+        D:false,
+        BG:false,
+        B:false,
+        BD:false
+      },
+      {
+        HG:false,
+        H:false,
+        HD:false,
+        G:false,
+        N:true,
+        D:false,
+        BG:false,
+        B:false,
+        BD:false
+      },
       {
         HG:false,
         H:false,
@@ -78,6 +145,23 @@ var texturesSources = {
       }
     ]
   },
+  pilier:{
+    type:"decors",
+    franchissable:false,
+    orientationsImage:[
+      {
+        HG:false,
+        H:true,
+        HD:false,
+        G:false,
+        N:true,
+        D:false,
+        BG:false,
+        B:true,
+        BD:false
+      }
+    ]
+  },
   mur:{
     type:"decors",
     franchissable:false,
@@ -126,6 +210,17 @@ var texturesSources = {
         BG:true,
         B:true,
         BD:true
+      },
+      {
+        HG:false,
+        H:true,
+        HD:false,
+        G:false,
+        N:true,
+        D:false,
+        BG:false,
+        B:true,
+        BD:false
       }
     ]
   },
@@ -152,13 +247,13 @@ var texturesSources = {
     orientationsImage:[
       {
         HG:false,
-        H:false,
+        H:true,
         HD:false,
         G:false,
-        N:true,
+        N:false,
         D:false,
         BG:false,
-        B:false,
+        B:true,
         BD:false
       }
     ]
@@ -213,16 +308,31 @@ var texturesSources = {
     franchissable:false,
     orientationsImage:[
       {
+        HG:false,
         H:true,
+        HD:false,
         G:true,
+        N:false,
         D:true,
-        B:true
-      },
+        BG:false,
+        B:true,
+        BD:false
+      }
+    ]
+  },
+  boss:{
+    type:"boss",
+    orientationsImage:[
       {
-        H:true,
-        G:true,
-        D:true,
-        B:true
+        HG:false,
+        H:false,
+        HD:false,
+        G:false,
+        N:true,
+        D:false,
+        BG:false,
+        B:false,
+        BD:false
       }
     ]
   }
