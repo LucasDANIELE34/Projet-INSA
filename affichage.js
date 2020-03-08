@@ -25,20 +25,19 @@ function afficher(){
   var ijPerso = xyVersIj(perso.x,perso.y);
   for (var i = ijPerso[0]-11; i < ijPerso[0]+11; i++) {//pour toutes les cases qui cadrient notre map, on affiche l'objet qu'elle contient
     for (var j =  ijPerso[1]-8; j < ijPerso[1]+8; j++) {
-      if (mapChargee) {
-        decor[i][j].afficher();
-      }
+      decor[i][j].afficher();
     }
   }
 
-    for (var i = 0; i < mesMonstres.length; i++) {
-      mesMonstres[i].afficher();
-    }
-    for (var i = 0; i < mesBoulets.length; i++) {
-      mesBoulets[i].afficher();
-    }
+  for (var i = 0; i < mesMonstres.length; i++) {
+    mesMonstres[i].afficher();
+  }
+  for (var i = 0; i < mesBoulets.length; i++) {
+    mesBoulets[i].afficher();
+  }
+  if (monBoss!='vide') {
+    monBoss.afficher();
+  }
 
-    if (mapChargee) {
-      perso.afficher();
-    }
+  perso.afficher();
 }

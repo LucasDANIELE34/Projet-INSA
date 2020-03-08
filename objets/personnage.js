@@ -1,9 +1,7 @@
 function personnage(i,j){
   this.name = 'personnage';
-  this.w=30;
-  this.h=30;
-  this.x=i*this.w;
-  this.y=j*this.h;
+  this.x=i*taille;
+  this.y=j*taille;
   this.v=2.5;
   this.variante=0;
   this.vieMax=5;
@@ -13,8 +11,8 @@ function personnage(i,j){
   this.parle=false;
   this.phrases=new Array();
   this.numeroPhrases=0;
-  this.textures = new Object();
   this.delaiAttaque=0;
+  this.ptAttaques=3;
 }
 
 personnage.prototype.calculerVitesse = function(){
@@ -51,10 +49,21 @@ personnage.prototype.deplacer = function(){
   ijApresDeplacement = xyVersIj((this.x + v[0]),(this.y + v[1]));
   //si l'élément décor qui est à la position du personnage apres son deplacemnt est franchissable, on se deplace
   if (decor[ijApresDeplacement[0]][ijPerso[1]].franchissable){
-    this.x += v[0];
+    if (monBoss == 'vide') {
+      this.x += v[0];
+    }
+    else if (distance(this.x+0.5*taille+v[0], this.y+0.5*taille, monBoss.x, monBoss.y)>taille) {
+      this.x += v[0];
+    }
+
   }
   if (decor[ijPerso[0]][ijApresDeplacement[1]].franchissable){
-    this.y += v[1];
+    if (monBoss == 'vide') {
+      this.y += v[1];
+    }
+    else if (distance(this.x+0.5*taille, this.y+0.5*taille+v[1], monBoss.x, monBoss.y)>taille*1.5) {
+      this.y += v[1];
+    }
   }
 }
 
@@ -160,42 +169,10 @@ personnage.prototype.compteurAnimation = function () {
   }
 };
 
-personnage.prototype.attaquer = function (ptAttaques,monstre){
-  if ((distance(this.x,this.y,monstre.x,monstre.y)<(this.w+monstre.w)) && (this.delaiAttaque == 0)) {
-    ajouterBoulet(this,monstre);
-    monstre.recevoirCoup(ptAttaques);
-    this.delaiAttaque=100;
+personnage.prototype.attaquer = function (monstre){
+  if ((distance(this.x,this.y,monstre.x,monstre.y)<(2*taille)) && (this.delaiAttaque == 0)) {
+    ajouterBoulet(this,monstre,true,this.ptAttaques);
+    monstre.recevoirCoup(this.ptAttaques);
+    this.delaiAttaque=50;
   }
-};
-
-
-function boulet (xDepart,yDepart,xArrivee,yArrivee,i){
-    this.v = 3;
-    this.i = i;
-    this.x = xDepart;
-    this.y = yDepart;
-    this.xDirection = xArrivee;
-    this.yDirection = yArrivee;
-}
-
-boulet.prototype.deplacer =function (){
-    var dist = distance(this.x,this.y,this.xDirection,this.yDirection);
-
-    if (dist!=0) {
-      var vX=(this.xDirection-this.x)*this.v/dist;
-      var vY=(this.yDirection-this.y)*this.v/dist;
-    }
-    if (dist>=this.v){
-      this.x +=vX;
-      this.y +=vY;
-    }
-    else {
-      supprimerBoulet(this.i);
-    }
-}
-
-boulet.prototype.afficher = function () {
-  var img = new Image();
-  img = texturesSources['personnage']['images'][0]['B'];
-  canvas.drawImage(img, this.x - perso.x + 300, this.y - perso.y + 200);
 };

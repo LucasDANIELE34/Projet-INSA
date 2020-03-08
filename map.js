@@ -3,9 +3,9 @@ for (var i = 0; i < 100; i++) {
   decor[i]=[];
 }
 
-var perso=new personnage(20+11,20+8);
-
-var mesMonstres=[new monstre(31,35,0,0),new monstre(21,27,0,1)];
+var perso=new personnage(8+11,14+8);
+var monBoss=new boss(8+11,10+8);
+var mesMonstres=[];
 var mesBoulets=[];
 
 function telechargerMap(cheminMap) {
@@ -28,8 +28,8 @@ function telechargerMap(cheminMap) {
 
 function chargerMap(map){
   //on fait un tour de vide autour de la pelouse
-  for (var i = 0; i < 11+40+11; i++) {
-    for (var j = 0; j < 8+40+8; j++) {
+  for (var i = 0; i < 11+20+11; i++) {
+    for (var j = 0; j < 8+20+8; j++) {
       //decor[i][j] = new texture('vide',i,j,'N',0);
       decor[i][j] = new texture('sol',i,j,'N',0);
     }

@@ -31,8 +31,13 @@ function clavierDown(e){
         touches.droite=true;
         break;
       case 32://espace
-        if ((!perso.parle) && (mesMonstres.length>0)) {
-           perso.attaquer(2,mesMonstres[indiceMonstreLePlusProche(mesMonstres)]);
+        if (!perso.parle) {
+          if (monBoss != 'vide') {
+            perso.attaquer(monBoss);
+          }
+          else if (mesMonstres.length>0) {
+            perso.attaquer(mesMonstres[indiceMonstreLePlusProche(mesMonstres)]);
+          }
         }
         break;
       case 13://entree
@@ -81,8 +86,19 @@ function boucle(){
       mesMonstres[i].attaquer();
     }
 
-    for (var i = 0; i < mesBoulets.length; i++) {
+    for (var i = mesBoulets.length-1; i > 0; i--) {
       mesBoulets[i].deplacer();
+    }
+
+    for (var i = mesBoulets.length-1; i > 0; i--) {
+      if (mesBoulets[i].aSupprimer) {
+        supprimerBoulet(i);
+      }
+    }
+
+    if (monBoss != 'vide') {
+      monBoss.vagueFeu();
+      monBoss.attaquerBoulets();
     }
 
   }
@@ -149,8 +165,8 @@ function supprimerBoulet(i){
   mesBoulets.splice(i,1);
 }
 
-function ajouterBoulet(perso,monstre){
-  mesBoulets[mesBoulets.length] = new boulet(perso.x,perso.y,monstre.x,monstre.y,mesBoulets.length);
+function ajouterBoulet(depart,objectif,gentil,ptAttaques){
+  mesBoulets[mesBoulets.length] = new boulet(depart.x,depart.y,objectif.x,objectif.y,gentil,ptAttaques);
 }
 
 function supprimerMonstre(i){
