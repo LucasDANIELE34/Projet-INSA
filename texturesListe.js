@@ -126,6 +126,39 @@ var texturesSources = {
         BG:false,
         B:false,
         BD:false
+      },
+      {
+        HG:false,
+        H:false,
+        HD:false,
+        G:false,
+        N:true,
+        D:false,
+        BG:false,
+        B:false,
+        BD:false
+      },
+      {
+        HG:false,
+        H:false,
+        HD:false,
+        G:false,
+        N:true,
+        D:false,
+        BG:false,
+        B:false,
+        BD:false
+      },
+      {
+        HG:false,
+        H:false,
+        HD:false,
+        G:false,
+        N:true,
+        D:false,
+        BG:false,
+        B:false,
+        BD:false
       }
     ]
   },
