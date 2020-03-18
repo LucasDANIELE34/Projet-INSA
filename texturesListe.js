@@ -21,13 +21,13 @@ var texturesSources = {
     franchissable:false,
     orientationsImage:[
       {
-        HG:false,
+        HG:true,
         H:true,
         HD:false,
-        G:false,
+        G:true,
         N:true,
         D:false,
-        BG:false,
+        BG:true,
         B:true,
         BD:false
       }

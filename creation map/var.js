@@ -207,7 +207,7 @@ function init() {
   chargerImages(texturesSources);
   for (var i = 0; i < 100; i++) {
     for (var j = 0; j < 100; j++) {
-      decor[i][j]=new texture('sol',i,j,'N',0,'','');
+      decor[i][j]=new texture('sol',i,j,'N',1,'','');
     }
   }
   boucle();
@@ -216,24 +216,21 @@ function init() {
 function resultatMap(){
   for (var i = 0; i < 100; i++) {
     for (var j = 0; j < 100; j++) {
-      if (decor[i][j].name != 'sol'){
-        decorAlegee[decorAlegee.length] = {
-          name:decor[i][j].name,
-          i:i+11,
-          j:j+8,
-          orientation:decor[i][j].orientation,
-          variante:decor[i][j].variante
-        }
+      decorAlegee[decorAlegee.length] = {
+        name:decor[i][j].name,
+        i:i+11,
+        j:j+8,
+        orientation:decor[i][j].orientation,
+        variante:decor[i][j].variante
+      }
 
-        if (decor[i][j].texte!=null) {
-          decorAlegee[decorAlegee.length-1].texte = decor[i][j].texte;
-        }
-        if (decor[i][j].map!=null) {
-          decorAlegee[decorAlegee.length-1].map = decor[i][j].map;
-          decorAlegee[decorAlegee.length-1].iSortie = decor[i][j].iSortie+11;
-          decorAlegee[decorAlegee.length-1].jSortie = decor[i][j].jSortie+8;
-        }
-
+      if (decor[i][j].texte!=null) {
+        decorAlegee[decorAlegee.length-1].texte = decor[i][j].texte;
+      }
+      if (decor[i][j].map!=null) {
+        decorAlegee[decorAlegee.length-1].map = decor[i][j].map;
+        decorAlegee[decorAlegee.length-1].iSortie = decor[i][j].iSortie+11;
+        decorAlegee[decorAlegee.length-1].jSortie = decor[i][j].jSortie+8;
       }
     }
   }
