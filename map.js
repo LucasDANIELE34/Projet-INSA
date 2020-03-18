@@ -1,10 +1,11 @@
 var decor = [];//tableau contenant tous les objets à afficher du décor
-for (var i = 0; i < 100; i++) {
+for (var i = 0; i < 20; i++) {
   decor[i]=[];
 }
 
-var perso=new personnage(8+11,14+8);
-var monBoss=new boss(8+11,10+8);
+var perso=new personnage(10,10);
+//var monBoss=new boss(10,10);
+var monBoss = 'vide';
 var mesMonstres=[];
 var mesBoulets=[];
 
@@ -27,14 +28,6 @@ function telechargerMap(cheminMap) {
 }
 
 function chargerMap(map){
-  //on fait un tour de vide autour de la pelouse
-  for (var i = 0; i < 11+20+11; i++) {
-    for (var j = 0; j < 8+20+8; j++) {
-      //decor[i][j] = new texture('vide',i,j,'N',0);
-      decor[i][j] = new texture('sol',i,j,'N',0);
-    }
-  }
-
   for (var i = 1; i < map.length; i++) {
     decor[map[i].i][map[i].j] = new texture(map[i].name,map[i].i,map[i].j,map[i].orientation,map[i].variante,map[i].texte,map[i].map);
     if (map[i].name == 'maisonPorte') {

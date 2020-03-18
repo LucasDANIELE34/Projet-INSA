@@ -47,24 +47,28 @@ personnage.prototype.deplacer = function(){
 
   ijPerso = xyVersIj(this.x, this.y);
   ijApresDeplacement = xyVersIj((this.x + v[0]),(this.y + v[1]));
+  
   //si l'élément décor qui est à la position du personnage apres son deplacemnt est franchissable, on se deplace
-  if (decor[ijApresDeplacement[0]][ijPerso[1]].franchissable){
-    if (monBoss == 'vide') {
-      this.x += v[0];
-    }
-    else if (distance(this.x+0.5*taille+v[0], this.y+0.5*taille, monBoss.x, monBoss.y)>taille) {
-      this.x += v[0];
-    }
+  if ((ijApresDeplacement[0]>=0) && (ijApresDeplacement[1]>=0) && (ijApresDeplacement[0]<20) && (ijApresDeplacement[1]<20)) {
+   if ((decor[ijApresDeplacement[0]][ijPerso[1]].franchissable)){
+      if (monBoss == 'vide') {
+        this.x += v[0];
+      }
+      else if (distance(this.x+0.5*taille+v[0], this.y+0.5*taille, monBoss.x, monBoss.y)>taille) {
+        this.x += v[0];
+      }
 
-  }
-  if (decor[ijPerso[0]][ijApresDeplacement[1]].franchissable){
-    if (monBoss == 'vide') {
-      this.y += v[1];
     }
-    else if (distance(this.x+0.5*taille, this.y+0.5*taille+v[1], monBoss.x, monBoss.y)>taille*1.5) {
-      this.y += v[1];
+    if (decor[ijPerso[0]][ijApresDeplacement[1]].franchissable){
+      if (monBoss == 'vide') {
+        this.y += v[1];
+      }
+      else if (distance(this.x+0.5*taille, this.y+0.5*taille+v[1], monBoss.x, monBoss.y)>taille*1.5) {
+        this.y += v[1];
+      }
     }
   }
+  
 }
 
 personnage.prototype.orienter= function(){
