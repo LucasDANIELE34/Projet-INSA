@@ -4,7 +4,7 @@ var canvas = document.getElementById('o_canvas');
 canvas = canvas.getContext('2d');//notre fenetre
 
 var decor = [];//tableau contenant tous les objets à afficher du décor
-for (var i = 0; i < 100; i++) {
+for (var i = 0; i < 20; i++) {
   decor[i]=[];
 }
 var decorAlegee=[];
@@ -12,8 +12,6 @@ var decorAlegee=[];
 var compteImgChargees=0;
 var sourisX;
 var sourisY;
-var XInit=0;
-var YInit=0;
 var choixTexture = 'sol';
 var orientation = 'N';
 var variante = 0;
@@ -93,19 +91,6 @@ function afficherVariantes(nbVariante) {
   document.getElementById('variante-choix').style.display = parametreAffichage;
 }
 
-function majPosition() {
-  XInit=parseInt(document.getElementById('x').value);
-  YInit=parseInt(document.getElementById('y').value);
-  if (XInit>=20) {
-    XInit=20;
-  }
-  if (YInit>=20) {
-    YInit=20;
-  }
-  document.getElementById('x').value=XInit;
-  document.getElementById('y').value=YInit;
-}
-
 function majTexture() {
   choixTexture=document.getElementById('texture-choix').value;
   choisirOrientationsAAfficher(choixTexture);
@@ -148,11 +133,10 @@ function majPositionSouris(e){
   sourisX=e.x;
   sourisY=e.y;
   maj();
-  placerTexture(Math.floor(20*sourisX/600)+XInit,Math.floor(20*sourisY/600)+YInit);
+  placerTexture(Math.floor(20*sourisX/600),Math.floor(20*sourisY/600));
 }
 
 function maj(){
-  majPosition();
   majTexture();
   majOrientation();
   majVariante();
@@ -166,8 +150,8 @@ function placerTexture(i,j){
     decor[i][j]=new texture(choixTexture,i,j,orientation,variante);
 
     if (choixTexture == 'maisonPorte') {
-      decor[i][j].iSortie= parseInt(prompt("position i à la sortie", 50));
-      decor[i][j].jSortie= parseInt(prompt("position j à la sortie", 50));
+      decor[i][j].iSortie= parseInt(prompt("position i à la sortie", 10));
+      decor[i][j].jSortie= parseInt(prompt("position j à la sortie", 10));
       decor[i][j].map = nomMap;
     }
 
@@ -205,8 +189,8 @@ function boucle(){
 
 function init() {
   chargerImages(texturesSources);
-  for (var i = 0; i < 100; i++) {
-    for (var j = 0; j < 100; j++) {
+  for (var i = 0; i < 20; i++) {
+    for (var j = 0; j < 20; j++) {
       decor[i][j]=new texture('sol',i,j,'N',1,'','');
     }
   }
@@ -214,12 +198,13 @@ function init() {
 }
 
 function resultatMap(){
-  for (var i = 0; i < 100; i++) {
-    for (var j = 0; j < 100; j++) {
+  decorAlegee.splice(0,decorAlegee);
+  for (var i = 0; i < 20; i++) {
+    for (var j = 0; j < 20; j++) {
       decorAlegee[decorAlegee.length] = {
         name:decor[i][j].name,
-        i:i+11,
-        j:j+8,
+        i:i,
+        j:j,
         orientation:decor[i][j].orientation,
         variante:decor[i][j].variante
       }
@@ -229,8 +214,8 @@ function resultatMap(){
       }
       if (decor[i][j].map!=null) {
         decorAlegee[decorAlegee.length-1].map = decor[i][j].map;
-        decorAlegee[decorAlegee.length-1].iSortie = decor[i][j].iSortie+11;
-        decorAlegee[decorAlegee.length-1].jSortie = decor[i][j].jSortie+8;
+        decorAlegee[decorAlegee.length-1].iSortie = decor[i][j].iSortie;
+        decorAlegee[decorAlegee.length-1].jSortie = decor[i][j].jSortie;
       }
     }
   }

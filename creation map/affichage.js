@@ -6,10 +6,10 @@ function afficher(){
   canvas.fillStyle="white";
   canvas.fill();
 
-  for (var i = XInit; i < XInit+20; i++) {//pour toutes les cases qui cadrient notre map, on affiche l'objet qu'elle contient
-    for (var j = YInit; j < YInit+20; j++) {
+  for (var i = 0; i < 20; i++) {//pour toutes les cases qui cadrient notre map, on affiche l'objet qu'elle contient
+    for (var j = 0; j < 20; j++) {
       img = texturesSources[decor[i][j].name]['images'][decor[i][j].variante][decor[i][j].orientation];
-      canvas.drawImage(img, decor[i][j].x-XInit*decor[i][j].w, decor[i][j].y-YInit*decor[i][j].h);
+      canvas.drawImage(img, decor[i][j].x, decor[i][j].y);
     }
   }
 }
