@@ -258,3 +258,19 @@ function chargerMap(map){
     }
   }
 }
+
+function decouperTexte(texte) {
+  var phrases = new Array();
+  var mots = texte.split(' ');
+  var i=0;
+  phrases[0]='';
+  do {
+    do {
+      phrases[i]+=' ' + mots[0];
+      mots.splice(0,1);
+    } while (!((phrases[i].length>55) || (mots.length == 0))) ;
+    i++;
+    phrases[i]='';
+  } while (mots.length != 0);
+  return phrases;
+}
