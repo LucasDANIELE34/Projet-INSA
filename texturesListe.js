@@ -206,6 +206,22 @@ var texturesSources = {
       }
     ]
   },
+  pnj:{
+    type:"personnage",
+    orientationsImage:[
+      {
+        HG:false,
+        H:true,
+        HD:false,
+        G:true,
+        N:false,
+        D:true,
+        BG:false,
+        B:true,
+        BD:false
+      }
+    ]
+  },
   boulet:{
     type:"vivants",
     orientationsImage:[
