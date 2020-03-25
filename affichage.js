@@ -23,11 +23,11 @@ function afficher(){
 
 
   var ijPerso = xyVersIj(perso.x,perso.y);
-  if (ijPerso[1]<=8) {
-    ijPerso[1]=8
+  if (ijPerso[1]<=9) {
+    ijPerso[1]=9;
   }
   if (ijPerso[1]>=12) {
-    ijPerso[1]=12
+    ijPerso[1]=12;
   }
   for (var i = 0; i < 20; i++) {//pour toutes les cases qui cadrient notre map, on affiche l'objet qu'elle contient
     for (var j =  ijPerso[1]-8; j < ijPerso[1]+8; j++) {
