@@ -1,0 +1,59 @@
+            Le manoir des Varamov
+
+
+Synopsis : 1857, le jeune Lewis Timberley est appelé de Londre
+par une riche famille Bulgare, les Varamov pour un travail
+d'investigation.
+En effet le manoir familiale delaissé depuis plusieurs générations
+doit être bientot rénové mais il semble hanté par de nombreuses
+créatures. Nous sommes alors plongés dans cette perilleuse
+aventure au moment où il s'apprete a rentrer dans le manoir.
+
+Entrée principale : Lewis est accueilli par le majordome.
+dialogue :
+" Bienvenue Sir Timberley, la famille Varamov vous remercie d'etre
+venu. Vous avez devant vous le manoir familial de toujours. Vous
+allez devoir le parcourir de fond en comble afin de le débarasser
+des nombreuses créatures présentes dans chacune des parties du manoirs.
+Vous serez bien entendu largement récompensé si vous parvenez à accomplir
+votre tâche. Vous trouverez quatres zones disctinctes, les ailes droites
+et gauches ainsi que la cave et le jardin (a modif si pas assez de temps)
+Souhaitez vous une aide avant de démarrer ?
+*Input oui non pour le tuto*
+(tuto de déplacement, d'attque bar de vie etc envisageable)
+Ah oui j'oubliais, certaines pièces requières une clée pour y accéder
+cependant je ne peux pas me permettre de vous en donner l'accès dès
+maintenant il faudra me prouver votre valeur. Vous saurez me trouver
+en temps et en heure, n'ayez crainte. Je vous conseil de commencer
+par l'aile droite, les monstres y sont plus cléments. Bonne chance."
+*disparait*
+
+
+Aile droite : enterdonjon : majordome : "Bienvenue dans l'aile droite.
+C'est ici que la famille varamov avait l'habitude de vivre. Faites bien
+attention a vous." *Disparait*
+room1 : 1 squelette pour que le joueur prennent en main les controles.
+Après la première pièce et les premiers monstres
+message : "reflexion de Lewis : ce manoir semble regorger de créatures
+étranges il va falloir que je reste sur mes gardes"
+room2 : 2 squelettes
+=== mecanique de déplacement des monstres
+Arraignée : déplacement en grande ligne droite rapide (charge) avec des
+pauses entre chaque charge.
+squelettes : Suit le joueur en permanence mais plus lent.
+Chauve souris : se déplace en rond ou arc de cercle
+Blop (boules rouges) déplacement aléatoire
+===
+Salle de la clée ( le majordome donne la clée)
+dialogue : "Je vois que votre renommée ne fait pas que vous précéder.
+VOici la clée qui vous permettra d'accéder a la dernière pièce."
+*disparait*
+room3 : 3 squelettes + 1 Arraignée
+room chest : Point de vie / augmentation attaque
+room 4: 3 squelettes + 2 Arraignée
+préboss : 4 Arraignées + deblocage de la porte
+boss : boss fantome
+revovery : rend tout les points de vie + majorodome
+dialogue : "Bien joué jeune homme, c'est un bon début.
+Il vous reste néanmpoins de nombreuses pièces a découvrir.
+A plus tard." *disparait*
