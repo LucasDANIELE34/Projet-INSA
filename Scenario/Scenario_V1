@@ -2,39 +2,39 @@
 
 
 Synopsis : 1857, le jeune Lewis Timberley est appelé de Londre
-par une riche famille Bulgare, les Varamov pour un travail
+par une riche famille Bulgare, les Varamov, pour un travail
 d'investigation.
-En effet le manoir familiale delaissé depuis plusieurs générations
+En effet le manoir familial delaissé depuis plusieurs générations
 doit être bientot rénové mais il semble hanté par de nombreuses
 créatures. Nous sommes alors plongés dans cette perilleuse
-aventure au moment où il s'apprete a rentrer dans le manoir.
+aventure au moment où il s'apprete à rentrer dans le manoir.
 
 Entrée principale : Lewis est accueilli par le majordome.
 dialogue :
-" Bienvenue Sir Timberley, la famille Varamov vous remercie d'etre
+" Bienvenue Sir Timberley, la famille Varamov vous remercie d'être
 venu. Vous avez devant vous le manoir familial de toujours. Vous
 allez devoir le parcourir de fond en comble afin de le débarasser
-des nombreuses créatures présentes dans chacune des parties du manoirs.
+des nombreuses créatures présentes dans chacune des parties du manoir.
 Vous serez bien entendu largement récompensé si vous parvenez à accomplir
-votre tâche. Vous trouverez quatres zones disctinctes, les ailes droites
-et gauches ainsi que la cave et le jardin (a modif si pas assez de temps)
+votre tâche. Vous trouverez quatre zones disctinctes, les ailes droite
+et gauche ainsi que la cave et le jardin (a modif si pas assez de temps)
 Souhaitez vous une aide avant de démarrer ?
 *Input oui non pour le tuto*
-(tuto de déplacement, d'attque bar de vie etc envisageable)
-Ah oui j'oubliais, certaines pièces requières une clée pour y accéder
+(tuto de déplacement, d'attaque bar de vie etc envisageable)
+Ah oui j'oubliais, certaines pièces requières une clé pour y accéder
 cependant je ne peux pas me permettre de vous en donner l'accès dès
-maintenant il faudra me prouver votre valeur. Vous saurez me trouver
-en temps et en heure, n'ayez crainte. Je vous conseil de commencer
+maintenant, il faudra me prouver votre valeur. Vous saurez me trouver
+en temps et en heure, n'ayez crainte. Je vous conseille de commencer
 par l'aile droite, les monstres y sont plus cléments. Bonne chance."
 *disparait*
 
 
 Aile droite : enterdonjon : majordome : "Bienvenue dans l'aile droite.
-C'est ici que la famille varamov avait l'habitude de vivre. Faites bien
-attention a vous." *Disparait*
-room1 : 1 squelette pour que le joueur prennent en main les controles.
+C'est ici que la famille Varamov avait l'habitude de vivre. Faites bien
+attention à vous." *Disparait*
+room1 : 1 squelette pour que le joueur prenne en main les contrôles.
 Après la première pièce et les premiers monstres
-message : "reflexion de Lewis : ce manoir semble regorger de créatures
+message : "reflexion de Lewis : Ce manoir semble regorger de créatures
 étranges il va falloir que je reste sur mes gardes"
 room2 : 2 squelettes
 === mecanique de déplacement des monstres
@@ -44,16 +44,16 @@ squelettes : Suit le joueur en permanence mais plus lent.
 (Chauve souris : se déplace en rond ou arc de cercle
 Blop (boules rouges) déplacement aléatoire)
 ===
-Salle de la clée ( le majordome donne la clée)
+Salle de la clé ( le majordome donne la clé)
 dialogue : "Je vois que votre renommée ne fait pas que vous précéder.
-VOici la clée qui vous permettra d'accéder a la dernière pièce."
+Voici la clé qui vous permettra d'accéder à la dernière pièce."
 *disparait*
 room3 : 3 squelettes + 1 Arraignée
-room chest : Point de vie / augmentation attaque
+room chest : (récupérer pts de vie ou augmentation de la jauge de vie?) Point de vie / augmentation pt attaque
 room 4: 3 squelettes + 2 Arraignée
 préboss : 4 Arraignées + deblocage de la porte
 boss : boss fantome
-revovery : rend tout les points de vie + majorodome
+recovery : rend tout les points de vie + majorodome
 dialogue : "Bien joué jeune homme, c'est un bon début.
 Il vous reste néanmpoins de nombreuses pièces a découvrir.
 A plus tard." *disparait*
