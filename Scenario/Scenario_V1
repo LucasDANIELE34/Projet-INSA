@@ -41,8 +41,8 @@ room2 : 2 squelettes
 Arraignée : déplacement en grande ligne droite rapide (charge) avec des
 pauses entre chaque charge.
 squelettes : Suit le joueur en permanence mais plus lent.
-Chauve souris : se déplace en rond ou arc de cercle
-Blop (boules rouges) déplacement aléatoire
+(Chauve souris : se déplace en rond ou arc de cercle
+Blop (boules rouges) déplacement aléatoire)
 ===
 Salle de la clée ( le majordome donne la clée)
 dialogue : "Je vois que votre renommée ne fait pas que vous précéder.
