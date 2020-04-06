@@ -1,2 +1,3 @@
-telechargerMap('maps/D_room1');
+telechargerMap('maps/D_room2');
+telechargerPerso('perso');
 boucle();

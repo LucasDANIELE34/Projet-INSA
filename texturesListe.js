@@ -179,6 +179,23 @@ var texturesSources = {
       }
     ]
   },
+  squelette:{
+    type:"monstre",
+    franchissable:true,
+    orientationsImage:[
+      {
+        HG:false,
+        H:false,
+        HD:false,
+        G:false,
+        N:false,
+        D:false,
+        BG:false,
+        B:true,
+        BD:false
+      }
+    ]
+  },
   coeur:{
     type:"vivants",
     franchissable:true,
@@ -219,6 +236,17 @@ var texturesSources = {
         BG:false,
         B:true,
         BD:false
+      },
+      {
+        HG:false,
+        H:true,
+        HD:false,
+        G:true,
+        N:false,
+        D:true,
+        BG:false,
+        B:true,
+        BD:false
       }
     ]
   },
@@ -234,6 +262,22 @@ var texturesSources = {
         D:false,
         BG:false,
         B:false,
+        BD:false
+      }
+    ]
+  },
+  blop:{
+    type:"monstre",
+    orientationsImage:[
+      {
+        HG:false,
+        H:false,
+        HD:false,
+        G:false,
+        N:false,
+        D:false,
+        BG:false,
+        B:true,
         BD:false
       }
     ]

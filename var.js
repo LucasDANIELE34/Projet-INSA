@@ -2,6 +2,7 @@ var canvas = document.getElementById('o_canvas');
 canvas = canvas.getContext('2d');//notre fenetre
 var urlServeur = "https://tipne.000webhostapp.com/";
 var mapChargee = false;
+var persoCharge=true;
 var taille = 30;
 
 var touches = new Object();
@@ -11,6 +12,10 @@ touches.gauche=false;
 touches.droite=false;
 document.addEventListener("keydown", clavierDown);
 document.addEventListener("keyup", clavierUp);
+
+blopDirectionX=0;
+blopDirectionY=0;
+blopDeplacementEnGroupe=false;
 
 function clavierDown(e){
     switch (e.keyCode ) {
@@ -72,18 +77,17 @@ function clavierUp(e){
 }
 
 function boucle(){
-  if (mapChargee) {
-    afficher();
-    if (!perso.parle) {
-      perso.orienter();
-      perso.deplacer();
-      perso.compteurAnimation();
-    }
+  if ((mapChargee) && (!perso.parle)) {
+    perso.orienter();
+    perso.deplacer();
+    perso.compteurAnimation();
 
-    for (var i = 0; i < mesMonstres.length; i++) {
-      mesMonstres[i].orienter();
+    for (var i = mesMonstres.length-1; i >= 0; i--) {
       mesMonstres[i].deplacer();
       mesMonstres[i].attaquer();
+      if (mesMonstres[i].aSupprimer) {
+        supprimerMonstre(i);
+      }
     }
 
     for (var i = mesBoulets.length-1; i > 0; i--) {
@@ -101,25 +105,46 @@ function boucle(){
       monBoss.attaquerBoulets();
     }
 
+    afficher();
   }
+
+  //si le perso parle il affiche le texte
+  if (perso.parle) {
+    perso.afficherTexte();
+  }
+
   setTimeout(boucle, 10);
 }
 
-function xyVersIj(x,y){
-  var ij=[];
-  ij[0]=Math.round(x/30);
-  ij[1]=Math.round(y/30);
-  return ij;
-}
+//-------------------------GESTION FICHIERS_DEBUT-----------------------------//
+function allegerMap(objet){
+  var decorAllege = [];
 
-function enregistrerDsFichier(chemin, objet) {
-  for (var i = 0; i < 100; i++) {
-    for (var j = 0; j < 100; j++) {
-      if (objet[i][j].name == 'pelouse') {
-        objet[i][j]='';
+  for (var i = 0; i < 20; i++) {
+    for (var j = 0; j < 20; j++) {
+      decorAllege[decorAllege.length] = {
+        name:objet[i][j].name,
+        i:i,
+        j:j,
+        orientation:objet[i][j].orientation,
+        variante:objet[i][j].variante
+      }
+
+      if (objet[i][j].texte!=null) {
+        decorAllege[decorAllege.length-1].texte = objet[i][j].texte;
+      }
+      if (objet[i][j].map!=null) {
+        decorAllege[decorAllege.length-1].map = objet[i][j].map;
+        decorAllege[decorAllege.length-1].iSortie = objet[i][j].iSortie;
+        decorAllege[decorAllege.length-1].jSortie = objet[i][j].jSortie;
       }
     }
   }
+
+  return decorAllege;
+}
+
+function enregistrerDsFichier(chemin, objet) {
   var monJSON =  JSON.stringify(objet);
   var xhttp = new XMLHttpRequest();
   var data = "chemin="+chemin+"&data="+monJSON;
@@ -127,6 +152,22 @@ function enregistrerDsFichier(chemin, objet) {
   xhttp.open("POST", urlServeur+"enregistrer.php", true);
   xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   xhttp.send(data);
+}
+
+function sauvegarder(){
+  var p = new Object();
+  p.name = perso.name;
+  p.x=10*taille;
+  p.y=10*taille;
+  p.vie=perso.vie;
+  p.vivant=perso.vivant;
+  p.ptAttaques=perso.ptAttaques;
+
+  if (perso.clef != "") {
+    p.clef=perso.clef;
+  }
+
+  enregistrerDsFichier("perso",p);
 }
 
 function decouperTexte(texte) {
@@ -138,21 +179,32 @@ function decouperTexte(texte) {
     do {
       phrases[i]+=' ' + mots[0];
       mots.splice(0,1);
-    } while (!((phrases[i].length>55) || (mots.length == 0))) ;
+    } while (!((phrases[i].length>45) || (mots.length == 0))) ;
     i++;
     phrases[i]='';
   } while (mots.length != 0);
   return phrases;
 }
+//-------------------------GESTION FICHIERS_FIN-----------------------------//
 
-function distance(x1,y1,x2,y2) {
-  return Math.sqrt((x1-x2)*(x1-x2)+(y1-y2)*(y1-y2));
+
+//-------------------------GESTION BOULETS_DEBUT-----------------------------//
+function supprimerBoulet(i){
+  mesBoulets.splice(i,1);
 }
 
+function ajouterBoulet(depart,objectif,ptAttaques){
+  mesBoulets[mesBoulets.length] = new boulet(depart,objectif,ptAttaques);
+}
+//-------------------------GESTION BOULETS_FIN-----------------------------//
+
+
+
+//-------------------------GESTION MONSTRES_DEBUT-----------------------------//
 function indiceMonstreLePlusProche(monstres){
-  var distanceMonstrePlusProche=15000;
-  var indice;
-  for (var i = 0; i < monstres.length; i++) {
+  var distanceMonstrePlusProche=distance(perso.x,perso.y,monstres[0].x,monstres[0].y);
+  var indice = 0;
+  for (var i = 1; i < monstres.length; i++) {
     if (distance(perso.x,perso.y,monstres[i].x,monstres[i].y)<distanceMonstrePlusProche) {
       distanceMonstrePlusProche=distance(perso.x,perso.y,monstres[i].x,monstres[i].y);
       indice=i;
@@ -161,14 +213,38 @@ function indiceMonstreLePlusProche(monstres){
   return indice;
 }
 
-function supprimerBoulet(i){
-  mesBoulets.splice(i,1);
-}
-
-function ajouterBoulet(depart,objectif,gentil,ptAttaques){
-  mesBoulets[mesBoulets.length] = new boulet(depart.x,depart.y,objectif.x,objectif.y,gentil,ptAttaques);
-}
-
 function supprimerMonstre(i){
   mesMonstres.splice(i,1);
 }
+
+function rassemblerGroupe (){
+    blopDirectionX = perso.x;
+    blopDirectionY = perso.y;
+    blopDeplacementEnGroupe = true;
+}
+//-------------------------GESTION MONSTRES_FIN-----------------------------//
+
+
+
+//-------------------------FONCTIONS OUTILS_DEBUT-----------------------------//
+function distance(x1,y1,x2,y2) {
+  return Math.sqrt((x1-x2)*(x1-x2)+(y1-y2)*(y1-y2));
+}
+
+function xyVersIj(x,y){
+  var ij=[];
+  ij[0]=Math.round(x/taille);
+  ij[1]=Math.round(y/taille);
+
+  for (var i = ij.length - 1; i >= 0; i--) {
+    if(ij[i]>19){
+      ij[i]=19;
+    }
+    if(ij[i]<0){
+      ij[i]=0;
+    }
+  }
+
+  return ij;
+}
+//-------------------------FONCTIONS OUTILS_FIN-----------------------------//
