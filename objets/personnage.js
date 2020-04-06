@@ -13,6 +13,7 @@ function personnage(i,j){
   this.numeroPhrases=0;
   this.delaiAttaque=0;
   this.ptAttaques=3;
+  this.clef='';
 }
 
 personnage.prototype.calculerVitesse = function(){
@@ -107,11 +108,6 @@ personnage.prototype.afficher= function(){
     img = texturesSources.coeur.images[0].demi;
     canvas.drawImage(img, nbCoeursComplets*15, 0, 15, 15);
   }
-
-  //si le perso parle il affiche le texte
-  if (this.parle) {
-    this.afficherTexte();
-  }
 }
 
 personnage.prototype.recevoirCoup = function (ptAttaques) {
@@ -130,6 +126,11 @@ personnage.prototype.parler = function(phrases){
 }
 
 personnage.prototype.afficherTexte = function (){
+  canvas.beginPath();   
+  canvas.rect(0,325,600,75);
+  canvas.fillStyle="gray";
+  canvas.fill();
+
   canvas.fillStyle= "black";
   canvas.font = "25px Arial";
   canvas.fillText(this.phrases[this.numeroPhrases],0,350);
@@ -175,7 +176,6 @@ personnage.prototype.compteurAnimation = function () {
 
 personnage.prototype.attaquer = function (monstre){
   if ((distance(this.x,this.y,monstre.x,monstre.y)<(2*taille)) && (this.delaiAttaque == 0)) {
-    ajouterBoulet(this,monstre,true,this.ptAttaques);
     monstre.recevoirCoup(this.ptAttaques);
     this.delaiAttaque=50;
   }

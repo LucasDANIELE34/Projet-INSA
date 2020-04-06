@@ -61,7 +61,7 @@ boss.prototype.attaquerFeu = function () {
 boss.prototype.attaquerBoulets = function (){
   this.compteur++;
   if (this.compteur % 50 == 0) {
-    ajouterBoulet(this,perso,false,this.ptAttaques);
+    ajouterBoulet(this,perso,this.ptAttaques);
   }
 };
 

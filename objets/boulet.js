@@ -1,10 +1,9 @@
-function boulet (xDepart,yDepart,xArrivee,yArrivee,gentil,ptAttaques){
+function boulet (depart, objectif, ptAttaques){
   this.v = 3;
-  this.x = xDepart;
-  this.y = yDepart;
-  this.xDirection = xArrivee;
-  this.yDirection = yArrivee;
-  this.gentil=gentil;
+  this.x = depart.x;
+  this.y = depart.y;
+  this.xDirection = objectif.x;
+  this.yDirection = objectif.y;
   this.ptAttaques = ptAttaques;
   this.aSupprimer=false;
 }
@@ -24,7 +23,7 @@ boulet.prototype.deplacer =function (){
       this.aSupprimer=true;
     }
 
-    if ((!this.gentil) && (distance(this.x,this.y,perso.x,perso.y)<this.v)) {
+    if (distance(this.x,this.y,perso.x,perso.y)<this.v) {
       perso.recevoirCoup(this.ptAttaques);
     }
 }
