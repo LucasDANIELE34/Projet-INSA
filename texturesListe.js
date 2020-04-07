@@ -279,7 +279,23 @@ var texturesSources = {
         BG:false,
         B:true,
         BD:false
+      },
+    ]
+  },
+  arraignee:{
+    type:"monstre",
+    orientationsImage:[
+      {
+        HG:false,
+        H:false,
+        HD:false,
+        G:false,
+        N:false,
+        D:false,
+        BG:false,
+        B:true,
+        BD:false
       }
     ]
-  }
+  },
 };

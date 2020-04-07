@@ -1,4 +1,4 @@
-function blop(variante,indiceTableau){
+function blop(variante){
   this.name='blop';
   this.x=Math.random()*18*taille+taille;
   this.y=Math.random()*15*taille+2*taille;
@@ -7,7 +7,6 @@ function blop(variante,indiceTableau){
   this.delaiAttaque=0;
   this.variante=variante;
   this.vie=5;
-  this.indiceTableau = indiceTableau;
   this.aSupprimer = false;
 }
 

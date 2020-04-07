@@ -29,40 +29,6 @@ function telechargerMap(cheminMap) {
   };
 }
 
-function chargerMap(map){
-  for (var i = map.monstres.length - 1; i >= 0; i--) {
-    switch (map.monstres[i]) {
-      case 'squelette':
-        mesMonstres[i]= new squelette(0,i);
-        break;
-      case 'blop':
-        mesMonstres[i]= new blop(0,i);
-        break;
-    }
-  }
-
-
-  for (var i = 0; i < map.decor.length; i++) {
-    decor[map.decor[i].i][map.decor[i].j] = new texture(map.decor[i].name,map.decor[i].i,map.decor[i].j,map.decor[i].orientation,map.decor[i].variante,map.decor[i].texte,map.decor[i].map);
-    if (map.decor[i].name == 'maisonPorte') {
-      decor[map.decor[i].i][map.decor[i].j].iSortie = map.decor[i].iSortie;
-      decor[map.decor[i].i][map.decor[i].j].jSortie = map.decor[i].jSortie;
-    }
-
-    if (map.decor[i].texte!=null) {
-      decor[map.decor[i].i][map.decor[i].j].phrases = decouperTexte(map.decor[i].texte);
-    }
-    if (map.decor[i].map!=null) {
-      decor[map.decor[i].i][map.decor[i].j].map = map.decor[i].map;
-      decor[map.decor[i].i][map.decor[i].j].iSortie = map.decor[i].iSortie;
-      decor[map.decor[i].i][map.decor[i].j].jSortie = map.decor[i].jSortie;
-    }
-  }
-
-  chargerImages(texturesSources);
-  mapChargee = true;
-}
-
 function telechargerPerso(cheminPerso) {
   persoCharge = false;
   var arguments = "chemin="+cheminPerso;
@@ -81,6 +47,41 @@ function telechargerPerso(cheminPerso) {
   };
 }
 
+function chargerMonstres(monstres){
+  for (var i = monstres.length - 1; i >= 0; i--) {
+    switch (monstres[i]) {
+      case 'squelette':
+        mesMonstres[i]= new squelette(0);
+        break;
+      case 'blop':
+        mesMonstres[i]= new blop(0);
+        break;
+      case 'arraignee':
+        mesMonstres[i]= new arraignee(0);
+        break;
+    }
+  }
+}
+
+function chargerDecor(textures){
+  for (var i = 0; i < textures.length; i++) {
+    decor[textures[i].i][textures[i].j] = new texture(textures[i].name,textures[i].i,textures[i].j,textures[i].orientation,textures[i].variante,textures[i].texte,textures[i].map);
+    if (textures[i].name == 'maisonPorte') {
+      decor[textures[i].i][textures[i].j].iSortie = textures[i].iSortie;
+      decor[textures[i].i][textures[i].j].jSortie = textures[i].jSortie;
+    }
+
+    if (textures[i].texte!=null) {
+      decor[textures[i].i][textures[i].j].phrases = decouperTexte(textures[i].texte);
+    }
+    if (textures[i].map!=null) {
+      decor[textures[i].i][textures[i].j].map = textures[i].map;
+      decor[textures[i].i][textures[i].j].iSortie = textures[i].iSortie;
+      decor[textures[i].i][textures[i].j].jSortie = textures[i].jSortie;
+    }
+  }
+}
+
 function chargerPerso(p) {
   persoCharge = true;
   perso.name = p.name;
@@ -89,4 +90,11 @@ function chargerPerso(p) {
   perso.vie=p.vie;
   perso.vivant=p.vivant;
   perso.ptAttaques=p.ptAttaques;
+}
+
+function chargerMap(map){
+  chargerMonstres(map.monstres);  
+  chargerDecor(map.decor);
+  chargerImages(texturesSources);
+  mapChargee = true;
 }

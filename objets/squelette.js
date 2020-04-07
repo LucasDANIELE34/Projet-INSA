@@ -1,9 +1,8 @@
-function squelette(variante,indiceTableau){
+function squelette(variante){
   this.name='squelette';
   this.x=Math.random()*18*taille+taille;
   this.y=Math.random()*16*taille+taille;
   this.v=0.7;
-  this.indiceTableau=indiceTableau
   this.variante=variante;
   this.directionX=this.x;
   this.directionY=this.y;
