@@ -43,7 +43,7 @@ blop.prototype.deplacementDiagonal =function(){
       arreterDeTourner= true;
     }
   }
-}
+};
 
 blop.prototype.deplacementCardinal =function(){
   var arreterDeTourner= false;
@@ -72,7 +72,7 @@ blop.prototype.deplacementCardinal =function(){
         arreterDeTourner= true;
       }
   }
-}
+};
 
 blop.prototype.deplacementAleatoire =function(){
   var arreterDeTourner =false;
@@ -94,7 +94,7 @@ blop.prototype.deplacementAleatoire =function(){
       arreterDeTourner= true;
     }
   }
-}
+};
 
 blop.prototype.deplacementSuivrePoint = function () {
   var a=blopDirectionX-this.x;
@@ -124,7 +124,7 @@ blop.prototype.deplacer = function(){
   else {
     rand=Math.random();
     if (rand<=0.45){
-      //this.deplacementDiagonal();
+      this.deplacementDiagonal();
     }
     else if ((rand>0.45) && (rand<=0.75)){
       this.deplacementAleatoire(2);
@@ -142,8 +142,7 @@ blop.prototype.afficher = function(){
   var img = new Image();
   img = texturesSources[this.name]['images'][this.variante]['B'];
   canvas.drawImage(img, this.x - perso.x + 300, this.y - perso.y + 200);
-}
-
+};
 
 blop.prototype.attaquer = function (){
   if ((distance(this.x,this.y,perso.x,perso.y) < taille) && (this.delaiAttaque == 0)) {
@@ -155,11 +154,15 @@ blop.prototype.attaquer = function (){
   if (this.delaiAttaque >0) {
     this.delaiAttaque--;
   }
-}
+};
 
 blop.prototype.recevoirCoup=function(pointsAttaque){
   this.vie -= pointsAttaque;
   if (this.vie < 0) {
-    this.aSupprimer = true;
+    this.mourir();
   }
+};
+
+blop.prototype.mourir = function(){
+  this.aSupprimer=true;
 }

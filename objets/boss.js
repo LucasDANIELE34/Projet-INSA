@@ -75,11 +75,15 @@ boss.prototype.recevoirCoup = function (ptAttaques) {
       this.vagueFeuAugmente=true;
     }
     else {//quand il est mort on supprime le boss et tous sdes boulets
-      for (var i = mesBoulets.length; i >=0; i--) {
-        supprimerBoulet(i)
-      }
-      monBoss = 'vide';
+      this.mourir();
     }
   }
   console.log(this.vie);
+};
+
+boss.prototype.mourir = function (){
+  for (var i = mesBoulets.length; i >=0; i--) {
+    mesBoulets[i].aSupprimer = true;
+  }
+  monBoss = 'vide';
 };

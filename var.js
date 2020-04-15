@@ -17,6 +17,7 @@ blopDirectionX=0;
 blopDirectionY=0;
 blopDeplacementEnGroupe=false;
 
+
 function clavierDown(e){
     switch (e.keyCode ) {
       case 90:
@@ -87,6 +88,7 @@ function boucle(){
       mesMonstres[i].attaquer();
       if (mesMonstres[i].aSupprimer) {
         supprimerMonstre(i);
+        ouvrirPortes();
       }
     }
 
@@ -144,15 +146,37 @@ function allegerMap(objet){
   return decorAllege;
 }
 
-function enregistrerDsFichier(chemin, objet) {
-  var monJSON =  JSON.stringify(objet);
+function enregistrerDsFichier(chemin, typeDObjet, objet) {
+  //on télécharge la map actuelle
+  var arg = "chemin="+chemin;
+  var donnees;
   var xhttp = new XMLHttpRequest();
-  var data = "chemin="+chemin+"&data="+monJSON;
-
-  xhttp.open("POST", urlServeur+"enregistrer.php", true);
+  xhttp.open("POST", urlServeur+"recuperer.php", true);
   xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-  xhttp.send(data);
+  xhttp.send(arg);
+
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      //quand elle est téléchargée, on modifie l'objet que l'on souhaite sauver
+      donnees = this.responseText;
+      donnees = JSON.parse(donnees);
+      if (typeDObjet == 'perso') {
+        donnees = objet;
+      }
+      else{
+        donnees[typeDObjet] = objet;
+      }
+      
+      //et on l'envoie au serveur
+      var monJSON =  JSON.stringify(donnees);
+      arg = "chemin="+chemin+"&data="+monJSON;
+      /*xhttp.open("POST", urlServeur+"enregistrer.php", true);
+      xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      xhttp.send(arg);*/
+    }
+  };  
 }
+
 
 function sauvegarder(){
   var p = new Object();
@@ -248,3 +272,34 @@ function xyVersIj(x,y){
   return ij;
 }
 //-------------------------FONCTIONS OUTILS_FIN-----------------------------//
+
+function ouvrirPortes(){
+  if (mesMonstres.length==0) {
+    for (var i = decor.length - 1; i >= 0; i--) {
+      for (var j = decor[i].length - 1; j >= 0; j--) {
+        if (decor[i][j].name == 'maisonPorte') {
+          decor[i][j].ouvert=true;
+        }
+      }
+    }
+    enregistrerDsFichier(cheminMapActuel,'nettoye',true);
+    
+    if (cheminMapActuel == "maps/D_room1") {
+      perso.parler(decouperTexte("Reflexion de Lewis : Ce manoir semble regorger de créatures étranges il va falloir que je reste sur mes gardes..."));
+    }
+  }
+}
+
+function deverouillagePorte(clePorte, clesPerso){
+  deverouillage=false;
+  for (var i = clesPerso.length - 1; i >= 0; i--) {
+    if(clesPerso[i]==clePorte){
+      deverouillage=true;
+    }
+  }
+  return deverouillage;
+}
+
+function donnerCle(cle){
+  perso.cles[perso.cles.length]=cle;
+}

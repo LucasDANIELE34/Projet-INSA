@@ -13,7 +13,7 @@ function personnage(i,j){
   this.numeroPhrases=0;
   this.delaiAttaque=0;
   this.ptAttaques=3;
-  this.clef='';
+  this.cles=[];
 }
 
 personnage.prototype.calculerVitesse = function(){
@@ -180,3 +180,12 @@ personnage.prototype.attaquer = function (monstre){
     this.delaiAttaque=50;
   }
 };
+
+personnage.prototype.ajouterPtsVie = function(ptsVie){
+  this.vieMax += ptsVie;
+  this.vie = this.vieMax;
+}
+
+personnage.prototype.ajouterPtsAttaque = function(ptsAttaque){
+  this.ptAttaques += ptsAttaque;
+}

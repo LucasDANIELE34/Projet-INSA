@@ -1,15 +1,12 @@
 function texture(name,i,j,orientation,variante){
   this.name=name;
-  this.h=30;
-  this.w=30;
-  this.x=i*this.h;
-  this.y=j*this.w;
+  this.x=i*taille;
+  this.y=j*taille;
   this.i=i;
   this.j=j;
   this.orientation=orientation;
   this.franchissable=texturesSources[name]['franchissable'];
   this.variante=variante;
-  this.parle=false;
 }
 
 texture.prototype.afficher= function(){
@@ -20,20 +17,50 @@ texture.prototype.afficher= function(){
 
 texture.prototype.interagir= function (){
   if (this.phrases!=null) {
-
     perso.parler(this.phrases);
-
-    if (this.name=='pnj') {
+    if (this.name=='pnj') {//si c'est le majordome qui parle, il disparrait après avoir parlé.
       this.copierCaseDessus();
     }
-
   }
 
-  if (this.map!=null) {
-    perso.x=this.iSortie*this.h;
-    perso.y=this.jSortie*this.h;
-    telechargerMap('maps/'+this.map);
+  if (this.cleADonner!=null) {
+    if (this.cleADonner.length>0) {
+      donnerCle(this.cleADonner);
+      this.cleADonner='';
+      enregistrerDsFichier(cheminMapActuel, 'decor', allegerMap(decor));
+      sauvegarder();
+    }
   }
+
+  if (this.ajoutPtsVie!=null) {
+    perso.ajouterPtsVie(this.ajoutPtsVie);
+    sauvegarder();
+  }
+
+  if (this.ajoutPtsAttaque!=null) {
+    perso.ajouterPtsAttaque(this.ajoutPtsAttaque);
+    sauvegarder();
+  }
+
+
+  if (this.map != null) {
+    if ((this.map.length==0) || (!this.ouvert)) {
+      perso.parler(decouperTexte("Il semblerait que cette porte soit fermée..."));
+    }
+    else{
+      if (!((this.cle=='') || deverouillagePorte(this.cle, perso.cles))) {
+        perso.parler(decouperTexte("Il semblerait que cette porte soit verouillée à clé..."));
+      }
+      else{
+        perso.x=this.iSortie*taille;
+        perso.y=this.jSortie*taille;
+        telechargerMap('maps/'+this.map);
+      }
+    }
+  }
+
+
+  
 }
 
 texture.prototype.copierCaseDessus = function () {
@@ -44,6 +71,7 @@ texture.prototype.copierCaseDessus = function () {
   this.variante = decor[this.i][this.j-1].variante;
 
   //on modifie la map dans le serveur
-  enregistrerDsFichier(cheminMapActuel, allegerMap(decor));
+  enregistrerDsFichier(cheminMapActuel,'decor',allegerMap(decor));
+  sauvegarder();
 }
 

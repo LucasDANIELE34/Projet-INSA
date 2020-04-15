@@ -48,6 +48,8 @@ function telechargerPerso(cheminPerso) {
 }
 
 function chargerMonstres(monstres){
+  mesMonstres.splice(0,mesMonstres.length);
+
   for (var i = monstres.length - 1; i >= 0; i--) {
     switch (monstres[i]) {
       case 'squelette':
@@ -63,12 +65,13 @@ function chargerMonstres(monstres){
   }
 }
 
-function chargerDecor(textures){
+function chargerDecor(textures, portesOuvertes){
   for (var i = 0; i < textures.length; i++) {
     decor[textures[i].i][textures[i].j] = new texture(textures[i].name,textures[i].i,textures[i].j,textures[i].orientation,textures[i].variante,textures[i].texte,textures[i].map);
     if (textures[i].name == 'maisonPorte') {
       decor[textures[i].i][textures[i].j].iSortie = textures[i].iSortie;
       decor[textures[i].i][textures[i].j].jSortie = textures[i].jSortie;
+      decor[textures[i].i][textures[i].j].ouvert = portesOuvertes;    
     }
 
     if (textures[i].texte!=null) {
@@ -78,6 +81,16 @@ function chargerDecor(textures){
       decor[textures[i].i][textures[i].j].map = textures[i].map;
       decor[textures[i].i][textures[i].j].iSortie = textures[i].iSortie;
       decor[textures[i].i][textures[i].j].jSortie = textures[i].jSortie;
+      decor[textures[i].i][textures[i].j].cle = textures[i].cle;
+    }
+    if (textures[i].cleADonner!=null) {
+      decor[textures[i].i][textures[i].j].cleADonner = textures[i].cleADonner;
+    }
+    if (textures[i].ajoutPtsVie!=null) {
+      decor[textures[i].i][textures[i].j].ajoutPtsVie = textures[i].ajoutPtsVie;
+    }
+    if (textures[i].ajoutPtsAttaque!=null) {
+      decor[textures[i].i][textures[i].j].ajoutPtsAttaque = textures[i].ajoutPtsAttaque;
     }
   }
 }
@@ -94,7 +107,14 @@ function chargerPerso(p) {
 
 function chargerMap(map){
   chargerMonstres(map.monstres);  
-  chargerDecor(map.decor);
+  if ((map.nettoye) || (mesMonstres.length==0)) {
+    portesOuvertes = true;
+  }
+  else{
+    portesOuvertes = false;
+  }
+
+  chargerDecor(map.decor,portesOuvertes);
   chargerImages(texturesSources);
   mapChargee = true;
 }

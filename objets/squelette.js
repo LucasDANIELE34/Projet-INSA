@@ -93,6 +93,10 @@ squelette.prototype.attaquer = function (){
 squelette.prototype.recevoirCoup = function (ptAttaques) {
   this.vie -= ptAttaques;
   if (this.vie<0) {
-    this.aSupprimer = true;
+    this.mourir();
   }
+};
+
+squelette.prototype.mourir = function (){
+  this.aSupprimer = true;
 };

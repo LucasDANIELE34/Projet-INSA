@@ -32,9 +32,13 @@ arraignee.prototype.attaquer = function() {
 arraignee.prototype.recevoirCoup = function (ptAttaque) {
 	this.vie-=ptAttaque;
 	if (this.vie<0) {
-		this.aSupprimer = true;
+		this.mourir();
 	}
-}
+};
+
+arraignee.prototype.mourir = function (){
+	this.aSupprimer = true;
+};
 
 arraignee.prototype.deplacer = function(){
 	var Vx=0;
@@ -54,11 +58,11 @@ arraignee.prototype.deplacer = function(){
 			this.delaiArret= this.delaiMouvementArretMax;
 		}
 	}
-}
+};
 
 arraignee.prototype.nouvelAngle= function(){
 	this.angle=Math.random()*2*Math.PI;
-}
+};
 
 arraignee.prototype.compteur = function(){
 	if ((this.delaiMouvement == 0) && (this.delaiArret == 0)) {
@@ -75,10 +79,10 @@ arraignee.prototype.compteur = function(){
 	if (this.delaiArret>0) {
 		this.delaiArret--;
 	}
-}
+};
 
 arraignee.prototype.afficher = function(){
 	var img = new Image();
 	img = texturesSources[this.name]['images'][this.variante]['B'];
 	canvas.drawImage(img, this.x - perso.x + 300, this.y - perso.y + 200);
-}
+};

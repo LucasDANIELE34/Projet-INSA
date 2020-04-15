@@ -1,21 +1,4 @@
 var texturesSources = {
-  vide:{
-    type:"decors",
-    franchissable:false,
-    orientationsImage:[
-      {
-        HG:false,
-        H:false,
-        HD:false,
-        G:false,
-        N:true,
-        D:false,
-        BG:false,
-        B:false,
-        BD:false
-      }
-    ]
-  },
   pilier:{
     type:"decors",
     franchissable:false,
@@ -28,6 +11,39 @@ var texturesSources = {
         N:true,
         D:false,
         BG:true,
+        B:true,
+        BD:false
+      }
+    ]
+  },
+  coffre:{
+    type:"decors",
+    franchissable:false,
+    orientationsImage:[
+      {
+        HG:false,
+        H:false,
+        HD:false,
+        G:false,
+        N:false,
+        D:true,
+        BG:false,
+        B:false,
+        BD:false
+      }
+    ]
+  },
+  chauveSouris:{
+    type:"monstre",
+    orientationsImage:[
+      {
+        HG:false,
+        H:false,
+        HD:false,
+        G:false,
+        N:false,
+        D:false,
+        BG:false,
         B:true,
         BD:false
       }
@@ -224,6 +240,7 @@ var texturesSources = {
     ]
   },
   pnj:{
+    franchissable:false,
     type:"personnage",
     orientationsImage:[
       {
