@@ -38,10 +38,7 @@ function clavierDown(e){
         break;
       case 32://espace
         if (!perso.parle) {
-          if (monBoss != 'vide') {
-            perso.attaquer(monBoss);
-          }
-          else if (mesMonstres.length>0) {
+          if (mesMonstres.length>0) {
             perso.attaquer(mesMonstres[indiceMonstreLePlusProche(mesMonstres)]);
           }
         }
@@ -83,28 +80,28 @@ function boucle(){
     perso.deplacer();
     perso.compteurAnimation();
 
-    for (var i = mesMonstres.length-1; i >= 0; i--) {
-      mesMonstres[i].deplacer();
-      mesMonstres[i].attaquer();
+
+    for (var i = mesMonstres.length - 1; i >= 0; i--) {
       if (mesMonstres[i].aSupprimer) {
         supprimerMonstre(i);
         ouvrirPortes();
       }
     }
 
-    for (var i = mesBoulets.length-1; i > 0; i--) {
-      mesBoulets[i].deplacer();
-    }
-
-    for (var i = mesBoulets.length-1; i > 0; i--) {
+    for (var i = mesBoulets.length-1; i >= 0; i--) {
       if (mesBoulets[i].aSupprimer) {
         supprimerBoulet(i);
       }
     }
 
-    if (monBoss != 'vide') {
-      monBoss.vagueFeu();
-      monBoss.attaquerBoulets();
+
+    for (var i = mesMonstres.length-1; i >= 0; i--) {
+      mesMonstres[i].deplacer();
+      mesMonstres[i].attaquer(); 
+    }
+
+    for (var i = mesBoulets.length-1; i > 0; i--) {
+      mesBoulets[i].deplacer();
     }
 
     afficher();
@@ -242,9 +239,22 @@ function supprimerMonstre(i){
 }
 
 function rassemblerGroupe (){
-    blopDirectionX = perso.x;
-    blopDirectionY = perso.y;
-    blopDeplacementEnGroupe = true;
+  blopDirectionX = perso.x;
+  blopDirectionY = perso.y;
+  blopDeplacementEnGroupe = true;
+}
+
+function seChevauchent(pX,pY,m){
+  chevauche=false;
+  positionCentreeX=pX+taille/2;
+  positionCentreeY=pY+taille/2;
+
+  for (var i = m.length - 1; i >= 0; i--) {
+    if (distance(m[i].x,m[i].y,positionCentreeX,positionCentreeY)<taille*0.7) {//taille*1.5 pour mettre une petite marge nécéssaire
+      chevauche=true;
+    }
+  }
+  return chevauche;
 }
 //-------------------------GESTION MONSTRES_FIN-----------------------------//
 

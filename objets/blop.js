@@ -1,7 +1,7 @@
 function blop(variante){
   this.name='blop';
-  this.x=Math.random()*18*taille+taille;
-  this.y=Math.random()*15*taille+2*taille;
+  this.x=Math.random()*16*taille+2*taille;
+  this.y=Math.random()*12*taille+4*taille;
   this.v=2;
   this.pointsAttaque=0.5;
   this.delaiAttaque=0;

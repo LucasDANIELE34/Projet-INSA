@@ -1,7 +1,7 @@
-function personnage(i,j){
+function personnage(){
   this.name = 'personnage';
-  this.x=i*taille;
-  this.y=j*taille;
+  this.x=0;
+  this.y=0;
   this.v=2.5;
   this.variante=0;
   this.vieMax=5;
@@ -12,7 +12,7 @@ function personnage(i,j){
   this.phrases=new Array();
   this.numeroPhrases=0;
   this.delaiAttaque=0;
-  this.ptAttaques=3;
+  this.ptAttaques=2;
   this.cles=[];
 }
 
@@ -50,27 +50,19 @@ personnage.prototype.deplacer = function(){
   ijApresDeplacement = xyVersIj((this.x + v[0]),(this.y + v[1]));
   
   //si l'élément décor qui est à la position du personnage apres son deplacemnt est franchissable, on se deplace
-  if ((ijApresDeplacement[0]>=0) && (ijApresDeplacement[1]>=0) && (ijApresDeplacement[0]<20) && (ijApresDeplacement[1]<20)) {
-   if ((decor[ijApresDeplacement[0]][ijPerso[1]].franchissable)){
-      if (monBoss == 'vide') {
-        this.x += v[0];
-      }
-      else if (distance(this.x+0.5*taille+v[0], this.y+0.5*taille, monBoss.x, monBoss.y)>taille) {
-        this.x += v[0];
-      }
-
-    }
-    if (decor[ijPerso[0]][ijApresDeplacement[1]].franchissable){
-      if (monBoss == 'vide') {
-        this.y += v[1];
-      }
-      else if (distance(this.x+0.5*taille, this.y+0.5*taille+v[1], monBoss.x, monBoss.y)>taille*1.5) {
-        this.y += v[1];
-      }
+  if ((decor[ijApresDeplacement[0]][ijPerso[1]].franchissable)){
+    if (!seChevauchent(perso.x +v[0],perso.y, mesMonstres)) {
+      this.x += v[0];
     }
   }
-  
+
+  if (decor[ijPerso[0]][ijApresDeplacement[1]].franchissable){
+    if (!seChevauchent(perso.x, perso.y + v[1], mesMonstres)) {
+      this.y += v[1];
+    }
+  }
 }
+  
 
 personnage.prototype.orienter= function(){
   if (touches.droite && !touches.gauche){

@@ -1,7 +1,7 @@
 function arraignee(variante){
 	this.name="arraignee";
-	this.x= Math.random()*18*taille + taille;
-	this.y= Math.random()*16*taille + 2*taille;
+  this.x=Math.random()*16*taille+2*taille;
+  this.y=Math.random()*12*taille+4*taille;
 	this.variante = variante;
 	this.vie = 9;
 	this.ptAttaque = 1;

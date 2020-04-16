@@ -48,13 +48,13 @@ texture.prototype.interagir= function (){
       perso.parler(decouperTexte("Il semblerait que cette porte soit fermée..."));
     }
     else{
-      if (!((this.cle=='') || deverouillagePorte(this.cle, perso.cles))) {
-        perso.parler(decouperTexte("Il semblerait que cette porte soit verouillée à clé..."));
-      }
-      else{
+      if ((this.cle=="") || deverouillagePorte(this.cle, perso.cles)) {
         perso.x=this.iSortie*taille;
         perso.y=this.jSortie*taille;
         telechargerMap('maps/'+this.map);
+      }
+      else{
+        perso.parler(decouperTexte("Il semblerait que cette porte soit verouillée à clé..."));
       }
     }
   }

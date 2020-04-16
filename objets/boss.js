@@ -1,13 +1,12 @@
-function boss(i,j){
+function boss(){
   this.name='boss';
-  this.i=i;
-  this.j=j;
-  this.x=i*taille+taille;
-  this.y=j*taille+taille;
+  this.x=9*taille+taille;
+  this.y=9*taille+taille;
   this.vieMax=12;
-  this.nbVie=3;
+  this.nbVieMax=2;
+  this.nbVie=this.nbVieMax;
   this.vie=this.vieMax;
-  this.ptAttaques=0.5;
+  this.ptAttaques=1;
   this.delaiAttaque=0;
   this.compteur=0;
 
@@ -15,19 +14,44 @@ function boss(i,j){
   this.rayonVagueFeu=0;
   this.vitesseVagueFeu=1.5;
   this.vagueFeuAugmente=false;
+
+  this.aSupprimer=false;
 }
 
 boss.prototype.afficher = function () {
+  //image monstre
   var img = new Image();
   img = texturesSources[this.name]['images'][0]['N'];
   canvas.drawImage(img, this.x - taille - perso.x + 300, this.y - taille - perso.y + 200);
 
+  //vague de feu
   if (this.rayonVagueFeu>0) {
     canvas.beginPath();
     canvas.strokeStyle = 'red';
     canvas.arc(this.x- perso.x + 300, this.y- perso.y + 200, this.rayonVagueFeu, 0, 2 * Math.PI);
     canvas.stroke();
   }
+
+  //barre de vie
+  var tailleJaugeDeVie=300;
+  var nbVie=this.nbVie*this.vieMax+this.vie;
+  var nbVieMax=(1+this.nbVieMax)*this.vieMax;
+  var tailleBarreDeVie=nbVie/nbVieMax*tailleJaugeDeVie;
+    //partie pleine
+  canvas.beginPath();
+  canvas.strokeStyle="red";      
+  canvas.rect(150,50,tailleBarreDeVie,2);
+  canvas.fillStyle="red";
+  canvas.fill();
+  canvas.stroke();
+    //partie vide
+  canvas.beginPath();
+  canvas.strokeStyle="gray";      
+  canvas.rect(150+tailleBarreDeVie,50,300-tailleBarreDeVie,2);
+  canvas.fillStyle="gray";
+  canvas.fill();
+  canvas.stroke();
+
 };
 
 boss.prototype.vagueFeu = function () {
@@ -78,12 +102,20 @@ boss.prototype.recevoirCoup = function (ptAttaques) {
       this.mourir();
     }
   }
-  console.log(this.vie);
 };
 
 boss.prototype.mourir = function (){
-  for (var i = mesBoulets.length; i >=0; i--) {
+  this.aSupprimer = true;
+  for (var i = mesBoulets.length - 1; i >= 0; i--) {
     mesBoulets[i].aSupprimer = true;
   }
-  monBoss = 'vide';
 };
+
+boss.prototype.deplacer = function(){
+  //ne se déplace pas....
+}
+
+boss.prototype.attaquer = function(){
+  this.vagueFeu();
+  this.attaquerBoulets();
+}

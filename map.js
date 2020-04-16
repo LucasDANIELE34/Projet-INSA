@@ -3,9 +3,7 @@ for (var i = 0; i < 20; i++) {
   decor[i]=[];
 }
 
-var perso=new personnage(10,10);
-//var monBoss=new boss(10,10);
-var monBoss = 'vide';
+var perso=new personnage();
 var mesMonstres=[];
 var mesBoulets=[];
 var cheminMapActuel='';
@@ -61,6 +59,12 @@ function chargerMonstres(monstres){
       case 'arraignee':
         mesMonstres[i]= new arraignee(0);
         break;
+      case 'chauveSouris':
+        mesMonstres[i]= new chauveSouris(0);
+        break;
+      case 'boss':
+        mesMonstres[i]= new boss();
+        break;
     }
   }
 }
@@ -98,7 +102,8 @@ function chargerDecor(textures, portesOuvertes){
 function chargerPerso(p) {
   persoCharge = true;
   perso.name = p.name;
-  perso.x=p.x;
+  //perso.x=p.x;
+  perso.x=5*taille;
   perso.y=p.y;
   perso.vie=p.vie;
   perso.vivant=p.vivant;

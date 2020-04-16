@@ -17,7 +17,7 @@ function chargerImages(texturesSources) {
 function afficher(){
   //on efface l'écran précédent
   canvas.beginPath();
-  canvas.rect(0,0,1000,1000);
+  canvas.rect(0,0,600,400);
   canvas.fillStyle="white";
   canvas.fill();
 
@@ -40,9 +40,6 @@ function afficher(){
   }
   for (var i = 0; i < mesBoulets.length; i++) {
     mesBoulets[i].afficher();
-  }
-  if (monBoss!='vide') {
-    monBoss.afficher();
   }
 
   perso.afficher();

@@ -1,7 +1,7 @@
 function squelette(variante){
   this.name='squelette';
-  this.x=Math.random()*18*taille+taille;
-  this.y=Math.random()*16*taille+taille;
+  this.x=Math.random()*16*taille+2*taille;
+  this.y=Math.random()*12*taille+4*taille;
   this.v=0.7;
   this.variante=variante;
   this.directionX=this.x;
