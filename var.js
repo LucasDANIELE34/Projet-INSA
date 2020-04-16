@@ -297,6 +297,9 @@ function ouvrirPortes(){
     if (cheminMapActuel == "maps/D_room1") {
       perso.parler(decouperTexte("Reflexion de Lewis : Ce manoir semble regorger de créatures étranges il va falloir que je reste sur mes gardes..."));
     }
+    else if (cheminMapActuel == "maps/D_Boss") {
+      perso.parler(decouperTexte("Reflexion de Lewis : Ce n'est pas passé loin! Ce monstre était terrifiant!"));
+    }
   }
 }
 

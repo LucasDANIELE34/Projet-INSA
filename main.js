@@ -1,3 +1,3 @@
-telechargerMap('maps/D_Boss');
+telechargerMap('maps/D_enterDonjon');
 telechargerPerso('perso');
 boucle();

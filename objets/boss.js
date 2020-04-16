@@ -40,14 +40,14 @@ boss.prototype.afficher = function () {
     //partie pleine
   canvas.beginPath();
   canvas.strokeStyle="red";      
-  canvas.rect(150,50,tailleBarreDeVie,2);
+  canvas.rect(150,30,tailleBarreDeVie,2);
   canvas.fillStyle="red";
   canvas.fill();
   canvas.stroke();
     //partie vide
   canvas.beginPath();
   canvas.strokeStyle="gray";      
-  canvas.rect(150+tailleBarreDeVie,50,300-tailleBarreDeVie,2);
+  canvas.rect(150+tailleBarreDeVie,30,300-tailleBarreDeVie,2);
   canvas.fillStyle="gray";
   canvas.fill();
   canvas.stroke();

@@ -102,8 +102,7 @@ function chargerDecor(textures, portesOuvertes){
 function chargerPerso(p) {
   persoCharge = true;
   perso.name = p.name;
-  //perso.x=p.x;
-  perso.x=5*taille;
+  perso.x=p.x;
   perso.y=p.y;
   perso.vie=p.vie;
   perso.vivant=p.vivant;
@@ -120,6 +119,7 @@ function chargerMap(map){
   }
 
   chargerDecor(map.decor,portesOuvertes);
+  perso.parler(decouperTexte(map.nomPiece));
   chargerImages(texturesSources);
   mapChargee = true;
 }
