@@ -1,5 +1,5 @@
 function chauveSouris (variante){
-  this.name = "chauveSouris";
+  this.nom = "chauveSouris";
   this.centreX=Math.random()*10*taille+5*taille;
   this.centreY=Math.random()*14*taille+3*taille;
   this.x=this.centreX;
@@ -55,11 +55,10 @@ chauveSouris.prototype.recevoirCoup = function(pointsAttaque){
 
 chauveSouris.prototype.afficher = function(){
  var img = new Image();
- img = texturesSources[this.name]['images'][this.variante]['B'];
+ img = texturesSources[this.nom]['images'][this.variante]['B'];
  canvas.drawImage(img, this.x - perso.x + 300, this.y - perso.y + 200);
 }
 
 chauveSouris.prototype.mourir = function(){
   this.aSupprimer = true;
 }
-

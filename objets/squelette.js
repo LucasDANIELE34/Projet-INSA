@@ -1,5 +1,5 @@
 function squelette(variante){
-  this.name='squelette';
+  this.nom='squelette';
   this.x=Math.random()*16*taille+2*taille;
   this.y=Math.random()*12*taille+4*taille;
   this.v=0.7;
@@ -16,7 +16,7 @@ function squelette(variante){
 
 squelette.prototype.afficher= function(){
   var img = new Image();
-  img = texturesSources[this.name]['images'][this.variante][this.orientation];
+  img = texturesSources[this.nom]['images'][this.variante][this.orientation];
   canvas.drawImage(img, this.x - perso.x + 300, this.y - perso.y + 200);
 }
 

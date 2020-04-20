@@ -1,5 +1,5 @@
 function blop(variante){
-  this.name='blop';
+  this.nom='blop';
   this.x=Math.random()*16*taille+2*taille;
   this.y=Math.random()*12*taille+4*taille;
   this.v=2;
@@ -64,7 +64,7 @@ blop.prototype.deplacementCardinal =function(){
       else if ((rand>0.75) && (rand<=1)){
         Vy =-this.v; //gauche
       }
-      
+
       ijApresDeplacement = xyVersIj(this.x+Vx, this.y+Vy);
       if (decor[ijApresDeplacement[0]][ijApresDeplacement[1]].franchissable) {
         this.x +=Vx;
@@ -140,7 +140,7 @@ blop.prototype.deplacer = function(){
 
 blop.prototype.afficher = function(){
   var img = new Image();
-  img = texturesSources[this.name]['images'][this.variante]['B'];
+  img = texturesSources[this.nom]['images'][this.variante]['B'];
   canvas.drawImage(img, this.x - perso.x + 300, this.y - perso.y + 200);
 };
 
@@ -150,7 +150,7 @@ blop.prototype.attaquer = function (){
     this.delaiAttaque=50;
     console.log(this.pointsAttaque);
   }
-  
+
   if (this.delaiAttaque >0) {
     this.delaiAttaque--;
   }

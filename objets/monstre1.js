@@ -1,5 +1,5 @@
 function monstre(i,j,variante,indiceTableau){
-  this.name='monstre';
+  this.nom='monstre';
   this.h=30;
   this.w=30;
   this.x=i*this.h;
@@ -37,7 +37,7 @@ monstre.prototype.orienter= function(){
 
 monstre.prototype.afficher= function(){
   var img = new Image();
-  img = texturesSources[this.name]['images'][this.variante][this.orientation];
+  img = texturesSources[this.nom]['images'][this.variante][this.orientation];
   canvas.drawImage(img, this.x - perso.x + 300, this.y - perso.y + 200);
 }
 

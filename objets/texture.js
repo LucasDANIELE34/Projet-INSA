@@ -1,24 +1,24 @@
-function texture(name,i,j,orientation,variante){
-  this.name=name;
+function texture(nom,i,j,orientation,variante){
+  this.nom=nom;
   this.x=i*taille;
   this.y=j*taille;
   this.i=i;
   this.j=j;
   this.orientation=orientation;
-  this.franchissable=texturesSources[name]['franchissable'];
+  this.franchissable=texturesSources[nom]['franchissable'];
   this.variante=variante;
 }
 
 texture.prototype.afficher= function(){
   var img = new Image();
-  img = texturesSources[this.name]['images'][this.variante][this.orientation];
+  img = texturesSources[this.nom]['images'][this.variante][this.orientation];
   canvas.drawImage(img, this.x - Math.floor(perso.x) + 300, this.y - Math.floor(perso.y) + 200);
 }
 
 texture.prototype.interagir= function (){
   if (this.phrases!=null) {
     perso.parler(this.phrases);
-    if (this.name=='pnj') {//si c'est le majordome qui parle, il disparrait après avoir parlé.
+    if (this.nom=='pnj') {//si c'est le majordome qui parle, il disparrait après avoir parlé.
       this.copierCaseDessus();
     }
   }
@@ -60,12 +60,12 @@ texture.prototype.interagir= function (){
   }
 
 
-  
+
 }
 
 texture.prototype.copierCaseDessus = function () {
   //on copie la case qui est au dessus
-  this.name = decor[this.i][this.j-1].name;
+  this.nom = decor[this.i][this.j-1].nom;
   this.orientation = decor[this.i][this.j-1].orientation;
   this.franchissable = decor[this.i][this.j-1].franchissable;
   this.variante = decor[this.i][this.j-1].variante;
@@ -74,4 +74,3 @@ texture.prototype.copierCaseDessus = function () {
   enregistrerDsFichier(cheminMapActuel,'decor',allegerMap(decor));
   sauvegarder();
 }
-

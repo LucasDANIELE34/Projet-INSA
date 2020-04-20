@@ -1,5 +1,5 @@
 function boss(){
-  this.name='boss';
+  this.nom='boss';
   this.x=9*taille+taille;
   this.y=9*taille+taille;
   this.vieMax=12;
@@ -21,7 +21,7 @@ function boss(){
 boss.prototype.afficher = function () {
   //image monstre
   var img = new Image();
-  img = texturesSources[this.name]['images'][0]['N'];
+  img = texturesSources[this.nom]['images'][0]['N'];
   canvas.drawImage(img, this.x - taille - perso.x + 300, this.y - taille - perso.y + 200);
 
   //vague de feu
@@ -39,14 +39,14 @@ boss.prototype.afficher = function () {
   var tailleBarreDeVie=nbVie/nbVieMax*tailleJaugeDeVie;
     //partie pleine
   canvas.beginPath();
-  canvas.strokeStyle="red";      
+  canvas.strokeStyle="red";
   canvas.rect(150,30,tailleBarreDeVie,2);
   canvas.fillStyle="red";
   canvas.fill();
   canvas.stroke();
     //partie vide
   canvas.beginPath();
-  canvas.strokeStyle="gray";      
+  canvas.strokeStyle="gray";
   canvas.rect(150+tailleBarreDeVie,30,300-tailleBarreDeVie,2);
   canvas.fillStyle="gray";
   canvas.fill();

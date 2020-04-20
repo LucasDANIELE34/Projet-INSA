@@ -1,5 +1,5 @@
 function personnage(){
-  this.name = 'personnage';
+  this.nom = 'personnage';
   this.x=0;
   this.y=0;
   this.v=2.5;
@@ -48,7 +48,7 @@ personnage.prototype.deplacer = function(){
 
   ijPerso = xyVersIj(this.x, this.y);
   ijApresDeplacement = xyVersIj((this.x + v[0]),(this.y + v[1]));
-  
+
   //si l'élément décor qui est à la position du personnage apres son deplacemnt est franchissable, on se deplace
   if ((decor[ijApresDeplacement[0]][ijPerso[1]].franchissable)){
     if (!seChevauchent(perso.x +v[0],perso.y, mesMonstres)) {
@@ -62,7 +62,7 @@ personnage.prototype.deplacer = function(){
     }
   }
 }
-  
+
 
 personnage.prototype.orienter= function(){
   if (touches.droite && !touches.gauche){
@@ -81,7 +81,7 @@ personnage.prototype.orienter= function(){
 
 personnage.prototype.afficher= function(){
   var img = new Image();
-  img = texturesSources[this.name]['images'][this.variante][this.orientation];
+  img = texturesSources[this.nom]['images'][this.variante][this.orientation];
   canvas.drawImage(img, 300, 200);
 
   //dessin des coeurs de vie
@@ -118,7 +118,7 @@ personnage.prototype.parler = function(phrases){
 }
 
 personnage.prototype.afficherTexte = function (){
-  canvas.beginPath();   
+  canvas.beginPath();
   canvas.rect(0,325,600,75);
   canvas.fillStyle="gray";
   canvas.fill();

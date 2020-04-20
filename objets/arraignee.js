@@ -1,5 +1,5 @@
 function arraignee(variante){
-	this.name="arraignee";
+	this.nom="arraignee";
   this.x=Math.random()*16*taille+2*taille;
   this.y=Math.random()*12*taille+4*taille;
 	this.variante = variante;
@@ -26,7 +26,7 @@ arraignee.prototype.attaquer = function() {
 	else{
 		this.delaiAttaque--;
 	}
-	
+
 };
 
 arraignee.prototype.recevoirCoup = function (ptAttaque) {
@@ -83,6 +83,6 @@ arraignee.prototype.compteur = function(){
 
 arraignee.prototype.afficher = function(){
 	var img = new Image();
-	img = texturesSources[this.name]['images'][this.variante]['B'];
+	img = texturesSources[this.nom]['images'][this.variante]['B'];
 	canvas.drawImage(img, this.x - perso.x + 300, this.y - perso.y + 200);
 };
