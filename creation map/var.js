@@ -19,8 +19,8 @@ var variante = 0;
 var nomMap='';
 var texteTexture='';
 
-function texture(name,i,j,orientation,variante){
-  this.name=name;
+function texture(nom,i,j,orientation,variante){
+  this.nom=nom;
   this.h=30;
   this.w=30;
   this.i=i;
@@ -203,7 +203,7 @@ function resultatMap(){
   for (var i = 0; i < 20; i++) {
     for (var j = 0; j < 20; j++) {
       decorAlegee[decorAlegee.length] = {
-        name:decor[i][j].name,
+        nom:decor[i][j].nom,
         i:i,
         j:j,
         orientation:decor[i][j].orientation,
@@ -242,8 +242,8 @@ function telechargerMap(cheminMap) {
 
 function chargerMap(map){
   for (var i = 1; i < map.length; i++) {
-    decor[map[i].i][map[i].j] = new texture(map[i].name,map[i].i,map[i].j,map[i].orientation,map[i].variante,map[i].texte,map[i].map);
-    if (map[i].name == 'maisonPorte') {
+    decor[map[i].i][map[i].j] = new texture(map[i].nom,map[i].i,map[i].j,map[i].orientation,map[i].variante,map[i].texte,map[i].map);
+    if (map[i].nom == 'maisonPorte') {
       decor[map[i].i][map[i].j].iSortie = map[i].iSortie;
       decor[map[i].i][map[i].j].jSortie = map[i].jSortie;
     }

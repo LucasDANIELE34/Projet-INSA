@@ -75,7 +75,7 @@ function chargerDecor(textures, portesOuvertes){
     if (textures[i].name == 'maisonPorte') {
       decor[textures[i].i][textures[i].j].iSortie = textures[i].iSortie;
       decor[textures[i].i][textures[i].j].jSortie = textures[i].jSortie;
-      decor[textures[i].i][textures[i].j].ouvert = portesOuvertes;    
+      decor[textures[i].i][textures[i].j].ouvert = portesOuvertes;
     }
 
     if (textures[i].texte!=null) {
@@ -110,7 +110,7 @@ function chargerPerso(p) {
 }
 
 function chargerMap(map){
-  chargerMonstres(map.monstres);  
+  chargerMonstres(map.monstres);
   if ((map.nettoye) || (mesMonstres.length==0)) {
     portesOuvertes = true;
   }

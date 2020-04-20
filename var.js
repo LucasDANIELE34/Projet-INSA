@@ -97,7 +97,7 @@ function boucle(){
 
     for (var i = mesMonstres.length-1; i >= 0; i--) {
       mesMonstres[i].deplacer();
-      mesMonstres[i].attaquer(); 
+      mesMonstres[i].attaquer();
     }
 
     for (var i = mesBoulets.length-1; i > 0; i--) {
@@ -122,7 +122,7 @@ function allegerMap(objet){
   for (var i = 0; i < 20; i++) {
     for (var j = 0; j < 20; j++) {
       decorAllege[decorAllege.length] = {
-        name:objet[i][j].name,
+        nom:objet[i][j].nom,
         i:i,
         j:j,
         orientation:objet[i][j].orientation,
@@ -163,7 +163,7 @@ function enregistrerDsFichier(chemin, typeDObjet, objet) {
       else{
         donnees[typeDObjet] = objet;
       }
-      
+
       //et on l'envoie au serveur
       var monJSON =  JSON.stringify(donnees);
       arg = "chemin="+chemin+"&data="+monJSON;
@@ -171,13 +171,13 @@ function enregistrerDsFichier(chemin, typeDObjet, objet) {
       xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
       xhttp.send(arg);*/
     }
-  };  
+  };
 }
 
 
 function sauvegarder(){
   var p = new Object();
-  p.name = perso.name;
+  p.nom = perso.nom;
   p.x=10*taille;
   p.y=10*taille;
   p.vie=perso.vie;
@@ -287,13 +287,13 @@ function ouvrirPortes(){
   if (mesMonstres.length==0) {
     for (var i = decor.length - 1; i >= 0; i--) {
       for (var j = decor[i].length - 1; j >= 0; j--) {
-        if (decor[i][j].name == 'maisonPorte') {
+        if (decor[i][j].nom == 'maisonPorte') {
           decor[i][j].ouvert=true;
         }
       }
     }
     enregistrerDsFichier(cheminMapActuel,'nettoye',true);
-    
+
     if (cheminMapActuel == "maps/D_room1") {
       perso.parler(decouperTexte("Reflexion de Lewis : Ce manoir semble regorger de créatures étranges il va falloir que je reste sur mes gardes..."));
     }
