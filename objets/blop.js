@@ -185,7 +185,6 @@ blop.prototype.animation = function(){
 
 blop.prototype.boucle = function(){
   this.animation();
-  this.afficher();
   this.deplacer();
   this.attaquer();
 }

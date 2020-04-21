@@ -107,7 +107,6 @@ arraignee.prototype.animation = function(){
 
 arraignee.prototype.boucle = function(){
   this.animation();
-  this.afficher();
   this.deplacer();
   this.attaquer();
 }

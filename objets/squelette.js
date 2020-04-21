@@ -120,7 +120,6 @@ squelette.prototype.animation = function(){
 
 squelette.prototype.boucle = function(){
   this.animation();
-  this.afficher();
   this.deplacer();
   this.attaquer();
 }

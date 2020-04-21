@@ -80,7 +80,6 @@ chauveSouris.prototype.animation = function(){
 
 chauveSouris.prototype.boucle = function(){
   this.animation();
-  this.afficher();
   this.deplacer();
   this.attaquer();
 }

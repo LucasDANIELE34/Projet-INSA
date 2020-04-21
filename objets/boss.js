@@ -136,6 +136,5 @@ boss.prototype.animation = function(){
 
 boss.prototype.boucle = function(){
   this.animation();
-  this.afficher();
   this.attaquer();
 }
