@@ -10,6 +10,10 @@ function boss(){
   this.delaiAttaque=0;
   this.compteur=0;
 
+  this.variante=0;
+  this.delaiDouleur=30;
+  this.compteurDouleur=0;
+
   this.rayonMaxVagueFeu=120;
   this.rayonVagueFeu=0;
   this.vitesseVagueFeu=1.5;
@@ -21,7 +25,7 @@ function boss(){
 boss.prototype.afficher = function () {
   //image monstre
   var img = new Image();
-  img = texturesSources[this.nom]['images'][0]['N'];
+  img = texturesSources[this.nom]['images'][this.variante]['N'];
   canvas.drawImage(img, this.x - taille - perso.x + 300, this.y - taille - perso.y + 200);
 
   //vague de feu
@@ -91,6 +95,8 @@ boss.prototype.attaquerBoulets = function (){
 
 boss.prototype.recevoirCoup = function (ptAttaques) {
   this.vie-=ptAttaques;
+  this.variante=1;
+  this.compteurDouleur=compteur;
 
   if (this.vie<=0) {
     if (this.nbVie>0) {
@@ -109,13 +115,27 @@ boss.prototype.mourir = function (){
   for (var i = mesBoulets.length - 1; i >= 0; i--) {
     mesBoulets[i].aSupprimer = true;
   }
+  bossEffet.pause();
+  bossEffet.ended=false;
+  bossEffet.currentTime=0;
 };
-
-boss.prototype.deplacer = function(){
-  //ne se déplace pas....
-}
 
 boss.prototype.attaquer = function(){
   this.vagueFeu();
   this.attaquerBoulets();
+}
+
+boss.prototype.animation = function(){
+  if (this.variante == 1) {
+    if (compteur>this.compteurDouleur + this.delaiDouleur) {
+      this.variante = 0;
+    }
+  }
+  
+}
+
+boss.prototype.boucle = function(){
+  this.animation();
+  this.afficher();
+  this.attaquer();
 }

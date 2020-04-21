@@ -17,6 +17,17 @@ blopDirectionX=0;
 blopDirectionY=0;
 blopDeplacementEnGroupe=false;
 
+var musiqueLancee=false;
+var backgroundMusic = new Audio('assets/audio/background.mp3');
+var bossEffet = new Audio('assets/audio/boss.mp3');
+var attaqueSon = new Audio('assets/audio/attaque.mp3');
+var feu = new Audio('assets/audio/feu.mp3');
+var coupRecu = new Audio('assets/audio/coupRecu.m4a');
+var phraseSuivante = new Audio('assets/audio/phraseSuivante.m4a');
+var succes = new Audio('assets/audio/succes.mp3');
+var porte = new Audio('assets/audio/porte.m4a');
+
+var compteur=0;
 
 function clavierDown(e){
     switch (e.keyCode ) {
@@ -40,6 +51,7 @@ function clavierDown(e){
         if (!perso.parle) {
           if (mesMonstres.length>0) {
             perso.attaquer(mesMonstres[indiceMonstreLePlusProche(mesMonstres)]);
+            attaqueSon.play();
           }
         }
         break;
@@ -49,6 +61,10 @@ function clavierDown(e){
         }
         else {
           perso.changerPhrases();
+          phraseSuivante.play();
+          if (!musiqueLancee) {
+            backgroundMusic.play();
+          }
         }
         break;
     }
@@ -76,10 +92,11 @@ function clavierUp(e){
 
 function boucle(){
   if ((mapChargee) && (!perso.parle)) {
+    compteur++;
+
     perso.orienter();
     perso.deplacer();
     perso.compteurAnimation();
-
 
     for (var i = mesMonstres.length - 1; i >= 0; i--) {
       if (mesMonstres[i].aSupprimer) {
@@ -87,7 +104,6 @@ function boucle(){
         ouvrirPortes();
       }
     }
-
     for (var i = mesBoulets.length-1; i >= 0; i--) {
       if (mesBoulets[i].aSupprimer) {
         supprimerBoulet(i);
@@ -96,10 +112,8 @@ function boucle(){
 
 
     for (var i = mesMonstres.length-1; i >= 0; i--) {
-      mesMonstres[i].deplacer();
-      mesMonstres[i].attaquer();
+      mesMonstres[i].boucle();
     }
-
     for (var i = mesBoulets.length-1; i > 0; i--) {
       mesBoulets[i].deplacer();
     }
@@ -110,6 +124,13 @@ function boucle(){
   //si le perso parle il affiche le texte
   if (perso.parle) {
     perso.afficherTexte();
+  }
+
+  if (backgroundMusic.ended) {
+    backgroundMusic.play();
+  }
+  if (bossEffet.ended) {
+    bossEffet.play();
   }
 
   setTimeout(boucle, 10);
@@ -184,8 +205,8 @@ function sauvegarder(){
   p.vivant=perso.vivant;
   p.ptAttaques=perso.ptAttaques;
 
-  if (perso.clef != "") {
-    p.clef=perso.clef;
+  if (perso.cles.length>0) {
+    p.cles=perso.cles;
   }
 
   enregistrerDsFichier("perso",p);
@@ -215,6 +236,7 @@ function supprimerBoulet(i){
 }
 
 function ajouterBoulet(depart,objectif,ptAttaques){
+  feu.play();
   mesBoulets[mesBoulets.length] = new boulet(depart,objectif,ptAttaques);
 }
 //-------------------------GESTION BOULETS_FIN-----------------------------//
@@ -285,6 +307,7 @@ function xyVersIj(x,y){
 
 function ouvrirPortes(){
   if (mesMonstres.length==0) {
+    succes.play();
     for (var i = decor.length - 1; i >= 0; i--) {
       for (var j = decor[i].length - 1; j >= 0; j--) {
         if (decor[i][j].nom == 'maisonPorte') {
@@ -315,4 +338,6 @@ function deverouillagePorte(clePorte, clesPerso){
 
 function donnerCle(cle){
   perso.cles[perso.cles.length]=cle;
+  succes.play();
 }
+

@@ -110,6 +110,7 @@ personnage.prototype.recevoirCoup = function (ptAttaques) {
   if (this.vie==0) {
     this.vivant=false;
   }
+  coupRecu.play();
 };
 
 personnage.prototype.parler = function(phrases){
@@ -176,8 +177,10 @@ personnage.prototype.attaquer = function (monstre){
 personnage.prototype.ajouterPtsVie = function(ptsVie){
   this.vieMax += ptsVie;
   this.vie = this.vieMax;
+  succes.play();
 }
 
 personnage.prototype.ajouterPtsAttaque = function(ptsAttaque){
   this.ptAttaques += ptsAttaque;
+  succes.play();
 }

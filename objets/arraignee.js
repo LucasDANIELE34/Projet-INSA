@@ -1,8 +1,8 @@
 function arraignee(variante){
 	this.nom="arraignee";
-  this.x=Math.random()*16*taille+2*taille;
-  this.y=Math.random()*12*taille+4*taille;
-	this.variante = variante;
+	this.x=Math.random()*16*taille+2*taille;
+	this.y=Math.random()*12*taille+4*taille;
+
 	this.vie = 9;
 	this.ptAttaque = 1;
 	this.aSupprimer = false;
@@ -14,6 +14,10 @@ function arraignee(variante){
 	this.delaiAttaqueMax=50;
 	this.delaiAttaque=0
 	this.v= 2;
+
+	this.variante = 0;
+	this.compteurDouleur=0;
+	this.delaiDouleur=30;
 }
 
 arraignee.prototype.attaquer = function() {
@@ -31,6 +35,10 @@ arraignee.prototype.attaquer = function() {
 
 arraignee.prototype.recevoirCoup = function (ptAttaque) {
 	this.vie-=ptAttaque;
+
+	this.variante=1;
+	this.compteurDouleur=compteur;
+
 	if (this.vie<0) {
 		this.mourir();
 	}
@@ -86,3 +94,20 @@ arraignee.prototype.afficher = function(){
 	img = texturesSources[this.nom]['images'][this.variante]['B'];
 	canvas.drawImage(img, this.x - perso.x + 300, this.y - perso.y + 200);
 };
+
+
+arraignee.prototype.animation = function(){
+  if (this.variante == 1) {
+    if (compteur>this.compteurDouleur + this.delaiDouleur) {
+      this.variante = 0;
+    }
+  }
+  
+}
+
+arraignee.prototype.boucle = function(){
+  this.animation();
+  this.afficher();
+  this.deplacer();
+  this.attaquer();
+}

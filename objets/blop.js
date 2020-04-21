@@ -8,6 +8,9 @@ function blop(variante){
   this.variante=variante;
   this.vie=5;
   this.aSupprimer = false;
+
+  this.compteurDouleur=0;
+  this.delaiDouleur=30;
 }
 
 blop.prototype.deplacementDiagonal =function(){
@@ -158,6 +161,10 @@ blop.prototype.attaquer = function (){
 
 blop.prototype.recevoirCoup=function(pointsAttaque){
   this.vie -= pointsAttaque;
+
+  this.variante=1;
+  this.compteurDouleur=compteur;
+  
   if (this.vie < 0) {
     this.mourir();
   }
@@ -165,4 +172,20 @@ blop.prototype.recevoirCoup=function(pointsAttaque){
 
 blop.prototype.mourir = function(){
   this.aSupprimer=true;
+}
+
+blop.prototype.animation = function(){
+  if (this.variante == 1) {
+    if (compteur>this.compteurDouleur + this.delaiDouleur) {
+      this.variante = 0;
+    }
+  }
+  
+}
+
+blop.prototype.boucle = function(){
+  this.animation();
+  this.afficher();
+  this.deplacer();
+  this.attaquer();
 }

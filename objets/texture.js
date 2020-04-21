@@ -51,6 +51,7 @@ texture.prototype.interagir= function (){
       if ((this.cle=="") || deverouillagePorte(this.cle, perso.cles)) {
         perso.x=this.iSortie*taille;
         perso.y=this.jSortie*taille;
+        porte.play();
         telechargerMap('maps/'+this.map);
       }
       else{

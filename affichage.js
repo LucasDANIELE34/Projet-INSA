@@ -35,9 +35,6 @@ function afficher(){
     }
   }
 
-  for (var i = 0; i < mesMonstres.length; i++) {
-    mesMonstres[i].afficher();
-  }
   for (var i = 0; i < mesBoulets.length; i++) {
     mesBoulets[i].afficher();
   }

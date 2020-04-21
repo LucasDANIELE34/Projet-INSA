@@ -11,7 +11,10 @@ function chauveSouris (variante){
   this.delaiAttaque=0;
   this.aSupprimer=false;
   this.vie=5;
-  this.variante=variante;
+
+  this.variante=0;
+  this.compteurDouleur=0;
+  this.delaiDouleur=30;
 }
 
 chauveSouris.prototype.attaquer = function (){
@@ -48,6 +51,9 @@ chauveSouris.prototype.deplacer= function (){
 
 chauveSouris.prototype.recevoirCoup = function(pointsAttaque){
   this.vie -= pointsAttaque;
+
+  this.variante=1;
+  this.compteurDouleur=compteur;
   if (this.vie < 0) {
     this.mourir();
   }
@@ -61,4 +67,20 @@ chauveSouris.prototype.afficher = function(){
 
 chauveSouris.prototype.mourir = function(){
   this.aSupprimer = true;
+}
+
+chauveSouris.prototype.animation = function(){
+  if (this.variante == 1) {
+    if (compteur>this.compteurDouleur + this.delaiDouleur) {
+      this.variante = 0;
+    }
+  }
+  
+}
+
+chauveSouris.prototype.boucle = function(){
+  this.animation();
+  this.afficher();
+  this.deplacer();
+  this.attaquer();
 }

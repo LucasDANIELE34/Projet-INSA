@@ -64,6 +64,7 @@ function chargerMonstres(monstres){
         break;
       case 'boss':
         mesMonstres[i]= new boss();
+        bossEffet.play();
         break;
     }
   }

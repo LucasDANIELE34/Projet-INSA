@@ -3,7 +3,7 @@ function squelette(variante){
   this.x=Math.random()*16*taille+2*taille;
   this.y=Math.random()*12*taille+4*taille;
   this.v=0.7;
-  this.variante=variante;
+  
   this.directionX=this.x;
   this.directionY=this.y;
   this.ptAttaques=0.5;
@@ -12,6 +12,10 @@ function squelette(variante){
   this.textures = new Object();
   this.vie=5;
   this.aSupprimer = false;
+
+  this.variante = 0;
+  this.compteurDouleur=0;
+  this.delaiDouleur=30;
 }
 
 squelette.prototype.afficher= function(){
@@ -92,6 +96,10 @@ squelette.prototype.attaquer = function (){
 
 squelette.prototype.recevoirCoup = function (ptAttaques) {
   this.vie -= ptAttaques;
+
+  this.variante=1;
+  this.compteurDouleur=compteur;
+
   if (this.vie<0) {
     this.mourir();
   }
@@ -100,3 +108,19 @@ squelette.prototype.recevoirCoup = function (ptAttaques) {
 squelette.prototype.mourir = function (){
   this.aSupprimer = true;
 };
+
+squelette.prototype.animation = function(){
+  if (this.variante == 1) {
+    if (compteur>this.compteurDouleur + this.delaiDouleur) {
+      this.variante = 0;
+    }
+  }
+  
+}
+
+squelette.prototype.boucle = function(){
+  this.animation();
+  this.afficher();
+  this.deplacer();
+  this.attaquer();
+}
