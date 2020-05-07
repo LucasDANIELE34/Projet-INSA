@@ -12,6 +12,17 @@ var texturesSources = {
         BG:false,
         B:true,
         BD:false
+      },
+      {
+        HG:false,
+        H:false,
+        HD:false,
+        G:false,
+        N:false,
+        D:false,
+        BG:false,
+        B:true,
+        BD:false
       }
     ]
   },
@@ -29,11 +40,33 @@ var texturesSources = {
         B:true,
         BD:false
       },
+      {
+        HG:false,
+        H:false,
+        HD:false,
+        G:false,
+        N:false,
+        D:false,
+        BG:false,
+        B:true,
+        BD:false
+      }
     ]
   },
   boss:{
     type:"monstre",
     orientationsImage:[
+      {
+        HG:false,
+        H:false,
+        HD:false,
+        G:false,
+        N:true,
+        D:false,
+        BG:false,
+        B:false,
+        BD:false
+      },
       {
         HG:false,
         H:false,
@@ -66,6 +99,17 @@ var texturesSources = {
   chauveSouris:{
     type:"monstre",
     orientationsImage:[
+      {
+        HG:false,
+        H:false,
+        HD:false,
+        G:false,
+        N:false,
+        D:false,
+        BG:false,
+        B:true,
+        BD:false
+      },
       {
         HG:false,
         H:false,
@@ -302,6 +346,17 @@ var texturesSources = {
     type:"monstre",
     franchissable:true,
     orientationsImage:[
+      {
+        HG:false,
+        H:false,
+        HD:false,
+        G:false,
+        N:false,
+        D:false,
+        BG:false,
+        B:true,
+        BD:false
+      },
       {
         HG:false,
         H:false,
