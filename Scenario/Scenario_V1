@@ -16,20 +16,27 @@ venu. Vous avez devant vous le manoir familial de toujours. Vous
 allez devoir le parcourir de fond en comble afin de le débarasser
 des nombreuses créatures présentes dans chacune des parties du manoir.
 Vous serez bien entendu largement récompensé si vous parvenez à accomplir
-votre tâche. Vous trouverez quatre zones disctinctes, les ailes droite
-et gauche ainsi que la cave et le jardin (a modif si pas assez de temps)
+votre tâche. Vous trouverez deux zones disctinctes, l'étage et la cave
 Souhaitez vous une aide avant de démarrer ?
 *Input oui non pour le tuto*
-(tuto de déplacement, d'attaque bar de vie etc envisageable)
 Ah oui j'oubliais, certaines pièces requières une clé pour y accéder
 cependant je ne peux pas me permettre de vous en donner l'accès dès
 maintenant, il faudra me prouver votre valeur. Vous saurez me trouver
 en temps et en heure, n'ayez crainte. Je vous conseille de commencer
-par l'aile droite, les monstres y sont plus cléments. Bonne chance."
+par l'étage, les monstres y sont moins agressifs. Bonne chance."
 *disparait*
 
+=== mecanique de déplacement des monstres
+Arraignée : déplacement en grande ligne droite rapide (charge) avec des
+pauses entre chaque charge.
+squelettes : Suit le joueur en permanence mais plus lent.
+Chauve souris : se déplace en rond ou arc de cercle
+Blop (boules rouges) déplacement aléatoire
+===
 
-Aile droite : enterdonjon : majordome : "Bienvenue dans l'aile droite.
+ETAGE
+
+enterdonjon : majordome : "Bienvenue à l'étage .
 C'est ici que la famille Varamov avait l'habitude de vivre. Faites bien
 attention à vous." *Disparait*
 room1 : 1 squelette pour que le joueur prenne en main les contrôles.
@@ -37,13 +44,6 @@ Après la première pièce et les premiers monstres
 message : "reflexion de Lewis : Ce manoir semble regorger de créatures
 étranges il va falloir que je reste sur mes gardes"
 room2 : 2 squelettes
-=== mecanique de déplacement des monstres
-Arraignée : déplacement en grande ligne droite rapide (charge) avec des
-pauses entre chaque charge.
-squelettes : Suit le joueur en permanence mais plus lent.
-(Chauve souris : se déplace en rond ou arc de cercle
-Blop (boules rouges) déplacement aléatoire)
-===
 Salle de la clé ( le majordome donne la clé)
 dialogue : "Je vois que votre renommée ne fait pas que vous précéder.
 Voici la clé qui vous permettra d'accéder à la dernière pièce."
@@ -57,3 +57,32 @@ recovery : rend tout les points de vie + majorodome
 dialogue : "Bien joué jeune homme, c'est un bon début.
 Il vous reste néanmpoins de nombreuses pièces a découvrir.
 A plus tard." *disparait*
+
+Le joueur retourne dans la pièce principale et peut maintenant accéder à la cave.
+
+CAVE
+enterdonjon : majordome : "Bienvenue dans la cave.
+Cette partie du manoir fut l'une des premières à être infesté. Les créatures qui peuplent
+cet endroit sont bien plus redoutable que celles que vous avez pu rencontrer jusqu'a maintenant.
+Je vais faire le tour pour vous remettre la clé si vous êtes toujours de ce monde d'ici là."
+room1 : une chauve souris (nouveau monstre pour le joueur)
+message : "reflexion de Lewis : ces chauve-souris sont rapides. Je vais devoir faire attention"
+room2 : 1 chauve souris + 1 blop + 1 squelette.
+room3 : 1 chauve souris + 2 blop + 1 Arraignée
+room key : majordome donne la clé
+dialogue : "Je suis content de voir que vous êtes encore debout. Mais le pire reste à venir.
+Voici la clé, je vous attend à la sortie bonne chance. "
+room4 : 3 chauve souris + 2 blop
+room chest : redonne deux coeurs (et pas toute la vie pour plus de difficulté)
+preboss : 2 chauve souris + 2 blop + 1 squelette + 1 araignée
+Boss : boss goule / armure
+recovery : majordome : Dialogue : "Je n'osais plus parcourir cette cave. Quel plaisir
+de pouvoir la parcourir sans risque. Retrouvez moi dans la pièce principale"
+*disparait*
+
+Lobby : majordome : dialogue : "Enfin ce manoir est debarrassé de toute cette vermine.
+ J'ai hâte de revoir la famille Varamov reinvestir les lieux et de redonner à ce manoir
+ son prestige. Voici votre récompense et merci encore."
+
+ Message de fin (credits) "Vous venez de terminer "le manoir des Varamov", une crééation
+ de Lucas DANIELE, Louis DEVAUD et Minh Triet TO. Merci d'avoir joué !"
