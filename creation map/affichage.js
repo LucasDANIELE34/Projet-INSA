@@ -8,7 +8,7 @@ function afficher(){
 
   for (var i = 0; i < 20; i++) {//pour toutes les cases qui cadrient notre map, on affiche l'objet qu'elle contient
     for (var j = 0; j < 20; j++) {
-      img = texturesSources[decor[i][j].name]['images'][decor[i][j].variante][decor[i][j].orientation];
+      img = texturesSources[decor[i][j].nom]['images'][decor[i][j].variante][decor[i][j].orientation];
       canvas.drawImage(img, decor[i][j].x, decor[i][j].y);
     }
   }
