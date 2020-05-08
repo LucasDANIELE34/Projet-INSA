@@ -15,7 +15,7 @@ var sourisX;
 var sourisY;
 var choixTexture = 'sol';
 var orientation = 'N';
-var variante = 0;
+var variante = 3;
 var nomMap='';
 var texteTexture='';
 
@@ -192,7 +192,7 @@ function init() {
   chargerImages(texturesSources);
   for (var i = 0; i < 20; i++) {
     for (var j = 0; j < 20; j++) {
-      decor[i][j]=new texture('sol',i,j,'N',1,'','');
+      decor[i][j]=new texture('sol',i,j,'N',3,'','');
     }
   }
   boucle();
