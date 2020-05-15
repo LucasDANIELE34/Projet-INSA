@@ -15,7 +15,7 @@ var sourisX;
 var sourisY;
 var choixTexture = 'sol';
 var orientation = 'N';
-var variante = 3;
+var variante = 1;
 var nomMap='';
 var texteTexture='';
 
@@ -192,9 +192,33 @@ function init() {
   chargerImages(texturesSources);
   for (var i = 0; i < 20; i++) {
     for (var j = 0; j < 20; j++) {
-      decor[i][j]=new texture('sol',i,j,'N',3,'','');
+      decor[i][j]=new texture('sol',i,j,'N',1,'','');
     }
   }
+for (var i = 0; i < 20; i++) {
+    decor[i][0]=new texture('maisonMur',i,0,'H',1,'','');
+}
+for (var i = 0; i < 20; i++) {
+  decor[i][1]=new texture('maisonMur',i,1,'N',1,'','');
+}
+for (var i = 0; i < 20; i++) {
+  decor[i][2]=new texture('maisonMur',i,2,'B',1,'','');
+}
+for (var i = 0; i < 20; i++) {
+  decor[i][17]=new texture('maisonMur',i,17,'H',1,'','');
+}
+for (var i = 0; i < 20; i++) {
+  decor[i][18]=new texture('maisonMur',i,18,'N',1,'','');
+}
+for (var i = 0; i < 20; i++) {
+  decor[i][19]=new texture('maisonMur',i,19,'B',1,'','');
+}
+for (var j = 0; j < 20; j++) {
+  decor[0][j]=new texture('pilier',0,j,'H',0,'','');
+}
+for (var j = 0; j < 20; j++) {
+  decor[19][j]=new texture('pilier',19,j,'HG',0,'','');
+}
   boucle();
 }
 

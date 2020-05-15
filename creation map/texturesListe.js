@@ -140,30 +140,13 @@ var texturesSources = {
     orientationsImage:[
       {
         HG:false,
-        H:false,
+        H:true,
         HD:false,
         G:false,
         N:false,
         D:true,
         BG:false,
         B:false,
-        BD:false
-      }
-    ]
-  },
-  escalier:{
-    type:"decors",
-    franchissable:true,
-    orientationsImage:[
-      {
-        HG:false,
-        H:true,
-        HD:false,
-        G:true,
-        N:false,
-        D:true,
-        BG:false,
-        B:true,
         BD:false
       }
     ]
@@ -237,6 +220,17 @@ var texturesSources = {
         D:false,
         BG:false,
         B:true,
+        BD:false
+      },
+      {
+        HG:false,
+        H:false,
+        HD:false,
+        G:false,
+        N:true,
+        D:false,
+        BG:false,
+        B:false,
         BD:false
       }
     ]
@@ -319,15 +313,15 @@ var texturesSources = {
     franchissable:true,
     orientationsImage:[
       {
-        HG:false,
+        HG:true,
         H:false,
-        HD:false,
+        HD:true,
         G:false,
-        N:true,
+        N:false,
         D:false,
-        BG:false,
+        BG:true,
         B:false,
-        BD:false
+        BD:true
       },
       {
         HG:false,
