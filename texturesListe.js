@@ -140,7 +140,7 @@ var texturesSources = {
     orientationsImage:[
       {
         HG:false,
-        H:true,
+        H:false,
         HD:false,
         G:false,
         N:false,
@@ -148,7 +148,18 @@ var texturesSources = {
         BG:false,
         B:false,
         BD:false
-      }
+      },
+      {
+          HG:false,
+          H:false,
+          HD:false,
+          G:false,
+          N:false,
+          D:true,
+          BG:false,
+          B:false,
+          BD:false
+        }
     ]
   },
   fenetre:{
