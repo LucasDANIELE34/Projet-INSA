@@ -340,4 +340,12 @@ function donnerCle(cle){
   perso.cles[perso.cles.length]=cle;
   succes.play();
 }
+//-----------------------fonction gameover----------------
 
+function gameOver (){
+perso.parler(decouperTexte("Game Over - Retour à l'entrée principale"));
+telechargerMap(Main.json);
+this.vie=this.vieMax;
+perso.x=300;
+perso.y=300;
+}

@@ -108,7 +108,7 @@ personnage.prototype.recevoirCoup = function (ptAttaques) {
     this.vie=0;
   }
   if (this.vie==0) {
-    this.vivant=false;
+    gameOver();
   }
   coupRecu.play();
 };
